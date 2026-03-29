@@ -4,5 +4,6 @@
   # 导入级模块
   imports = [
     ./kitty.nix
+    ./hyprland.nix
   ];
 }
