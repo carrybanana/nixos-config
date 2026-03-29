@@ -38,6 +38,7 @@
     helix             #编辑器
     zed-editor-fhs    #编辑器
     jetbrains.clion
+    kitty	  # 一款好用的终端
 
     nil  # 安装 nil LSP 服务器
 
@@ -49,6 +50,6 @@
     android-tools
     usbutils      # usb软件包
 
-    kitty	  # 一款好用的终端
+    google-chrome
   ];
 }
