@@ -38,6 +38,12 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # nixvim
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{
@@ -49,6 +55,7 @@
     home-manager,
     flake-utils,
     agenix,
+    nixvim,
     ... }:
     let
       # 统一定义系统架构，便于维护和未来扩展

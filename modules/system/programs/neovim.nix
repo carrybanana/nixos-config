@@ -1,58 +1,176 @@
-# /etc/nixos/modules/system/programs.nix
-
-{ config, lib, pkgs, ... }:
+{ inputs, config, pkgs, lib, ... }:
 
 {
-  # neovim
-  # === 启用 Neovim（使用 configure 选项，Lua 格式） ===
-  programs.neovim = {
-    # 1. 核心开关：启用 Neovim（无需额外配置 extraLuaConfig，所有配置放在 configure 中）
-    enable = true;
+  # ✅ 从 flake 导入 NixVim
+  imports = [ inputs.nixvim.nixosModules.nixvim ];
 
-    # 2. 核心配置：使用 configure 选项（attribute set 类型，对应你看到的示例）
-    configure = {
-      # === Lua 自定义配置（对应你的需求，替代 extraLuaConfig） ===
-      customLuaRC = ''
-        -- 基础配置（和之前的 Lua 配置完全一致）
-        vim.opt.number = true
-        vim.opt.relativenumber = true
-        vim.opt.autoindent = true
-        vim.opt.smartindent = true
-        vim.opt.tabstop = 2
-        vim.opt.shiftwidth = 2
-        vim.opt.expandtab = true
-        vim.opt.cursorline = true
-        vim.opt.hlsearch = true
-        vim.opt.incsearch = true
-        vim.opt.ignorecase = true
-        vim.opt.smartcase = true
-        vim.opt.encoding = "utf-8"
-        vim.opt.mouse = "a"
+  # sudo 显示/剪贴板兼容
+  security.sudo.extraConfig = ''
+    Defaults env_keep += "WAYLAND_DISPLAY XAUTHORITY DISPLAY XDG_RUNTIME_DIR"
+  '';
 
-        -- 自定义快捷键
-        vim.keymap.set("n", "<C-s>", ":w<CR>")
-        vim.keymap.set("i", "<C-s>", "<Esc>:w<CR>a")
+  # ======================
+  # Neovim 主配置
+  # ======================
+  programs.nixvim = {
+    enable = true;        # 启用 NixVim
+#     vimAlias = true;      # 输入 vim → 自动打开 nvim
+#     viAlias = true;       # 输入 vi → 自动打开 nvim
+    defaultEditor = false;# 不设为系统默认编辑器
 
-        -- 可选：主题配置（需在 packages 中安装 gruvbox-nvim）
-        -- vim.cmd("colorscheme gruvbox")
-      '';
-      # === 可选：Vimscript 自定义配置（如果有遗留 Vimscript 代码，可写在这里） ===
-      # customRC = ''
-      #   " Vimscript 代码示例
-      #   set laststatus=2
-      # '';
+    # 系统依赖
+    extraPackages = with pkgs; [
+      ripgrep
+      fd
 
-      # === 插件管理（核心：分 start（启动加载）和 opt（手动加载）） ===
-      packages.myVimPackage = with pkgs.vimPlugins; {
-        # 启动即加载的插件（对应之前的 plugins 选项）
-        start = [
-          gruvbox-nvim        # 经典主题
-          telescope-nvim      # 搜索插件
-          plenary-nvim        # telescope 依赖
+      # 固定 tree-sitter 0.26.7
+      (tree-sitter.overrideAttrs (old: rec {
+        version = "0.26.7";
+        src = fetchFromGitHub {
+          owner = "tree-sitter";
+          repo = "tree-sitter";
+          rev = "v${version}";
+          hash = "sha256-O3c2djKhM+vIYunthDApi9sw/gFH/FBME1uR4N+9MFM=";
+        };
+        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [
+          llvmPackages.libclang
+          rustPlatform.bindgenHook
         ];
+        LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
+        patches = [];
+        doCheck = false;
+        cargoDeps = rustPlatform.importCargoLock {
+          lockFile = "${src}/Cargo.lock";
+        };
+      }))
+    ];
 
-        # 手动加载的插件（需要时在 Neovim 中输入 :packadd 插件名 加载，目前留空即可）
-        opt = [ ];
+    # 基础编辑器设置
+    opts = {
+      number = true;
+      guicursor = "";
+
+      foldcolumn = "0";
+      foldlevel = 99;
+      foldlevelstart = 99;
+      foldenable = true;
+
+      smartindent = false;
+      expandtab = true;
+      shiftwidth = 2;
+      tabstop = 2;
+    };
+
+    # Lua 增强配置
+    extraConfigLua = ''
+      -- 取消 gc 快捷键
+      vim.keymap.del('n', 'gc')
+      vim.keymap.del('x', 'gc')
+
+      -- 自动保存/加载视图（折叠记忆）
+      vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
+        pattern = { "*.*" },
+        callback = function()
+          if vim.bo.buftype == "" then
+            vim.cmd("silent! mkview")
+          end
+        end,
+      })
+      vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+        pattern = { "*.*" },
+        callback = function()
+          if vim.bo.buftype == "" then
+            vim.cmd("silent! loadview")
+          end
+        end,
+      })
+    '';
+
+    # 额外插件
+    extraPlugins = with pkgs.vimPlugins; [
+      coc-nvim
+      promise-async
+    ];
+
+    # 插件配置
+    plugins = {
+      nvim-treesitter = {
+        enable = true;
+        grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [ nix ];
+      };
+
+      treesitter = {
+        enable = true;
+        settings = {
+          highlight.enable = true;
+          indent.enable = true;
+        };
+      };
+
+      nvim-ufo = {
+        enable = true;
+        settings = {
+          provider_selector = ''
+            function(bufnr, filetype, buftype)
+              return { 'treesitter', 'indent' }
+            end
+          '';
+
+          fold_virt_text_handler = ''
+            function(virtText, lnum, endLnum, width, truncate)
+                local newVirtText = {}
+                local suffix = (' 󰁂 %d '):format(endLnum - lnum)
+                local sufWidth = vim.fn.strdisplaywidth(suffix)
+                local targetWidth = width - sufWidth
+                local curWidth = 0
+                for _, chunk in ipairs(virtText) do
+                    local chunkText = chunk[1]
+                    local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+                    if targetWidth > curWidth + chunkWidth then
+                        table.insert(newVirtText, chunk)
+                    else
+                        chunkText = truncate(chunkText, targetWidth - curWidth)
+                        local hlGroup = chunk[2]
+                        table.insert(newVirtText, {chunkText, hlGroup})
+                        chunkWidth = vim.fn.strdisplaywidth(chunkText)
+                        if curWidth + chunkWidth < targetWidth then
+                            suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
+                        end
+                        break
+                    end
+                    curWidth = curWidth + chunkWidth
+                end
+                table.insert(newVirtText, {suffix, 'MoreMsg'})
+                return newVirtText
+            end
+          '';
+        };
+      };
+
+      image.enable = true;
+      flash.enable = true;
+      markdown-preview.enable = true;
+      telescope.enable = true;
+      web-devicons.enable = true;
+      Comment.enable = true;
+      which-key.enable = true;
+      mini.enable = true;
+
+      neo-tree = {
+        enable = true;
+        settings = {
+          filesystem = {
+            follow_current_file = {
+              enabled = true;
+              leaveDirsOpen = false;
+            };
+            filtered_items = {
+              visible = true;
+              showHidden = true;
+              showGitignored = false;
+            };
+          };
+        };
       };
     };
   };
