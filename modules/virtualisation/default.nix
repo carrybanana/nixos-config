@@ -4,6 +4,6 @@
 
 {
   imports = [
-    ./kvm.nix  # 相对路径导入
+    ./qemu-kvm.nix  # 相对路径导入
   ];
 }
