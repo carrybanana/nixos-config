@@ -60,7 +60,6 @@
     nil                  # Nix语言LSP服务器（代码补全/提示）
     kitty                # 高性能GPU加速终端模拟器
     zed-editor-fhs       # Zed 高性能轻量级代码编辑器
-    nix-alien-pkgs.nix-alien # 把非Nix包转为Nix可用格式
 
     # ==============================================
     # 日常社交 / 通讯
