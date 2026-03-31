@@ -7,6 +7,7 @@
     ./firefox.nix
     ./fish-shell.nix
     ./neovim.nix
+    ./nix-ld.nix
     ./obs-studio.nix
     ./steam.nix
     ./vim.nix
@@ -15,7 +16,12 @@
   ];
 
   # 允许非自由软件（系统级，如NVIDIA驱动、Chrome）
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowUnfreePredicate = _: true; # 强制允许所有非自由包
+    nvidia.acceptLicense = true;
+  };
+
 
   # 启用flatpak
   services.flatpak = {
@@ -24,32 +30,118 @@
 
   # 系统级软件（所有用户共享，如开发工具）
   environment.systemPackages = with pkgs; [
-    nixos-rebuild-ng
-    wget
-    git
-    tree        # 文件树
-    fastfetch   # 系统信息展示
+    # ==============================================
+    # 系统基础工具
+    # ==============================================
+    nixos-rebuild-ng     # 新一代NixOS系统重建工具，更简洁高效
+    wget                 # 命令行下载工具，支持HTTP/HTTPS/FTP下载
+    git                  # 版本控制工具，代码管理必备
+    tree                 # 以树形结构展示目录文件列表
+    fastfetch            # 系统信息展示工具（比neofetch更快）
+    psmisc               # 包含killall/pstree/fuser等进程管理小工具
+    binutils             # 二进制文件处理工具集（objdump、readelf等）
+    unzip                # 解压zip压缩包
+    unrar                # 解压rar压缩包
+    exfatprogs           # exFAT文件系统格式化/修复工具
+    os-prober            # 系统启动项检测工具，用于多系统引导
+    networkmanagerapplet # NetworkManager托盘图标，管理Wi-Fi/网络
 
-    # 开发软件
-    gcc
-    cmake
-    ninja
-    clang
-    helix             #编辑器
-    zed-editor-fhs    #编辑器
-    jetbrains.clion
-    kitty	  # 一款好用的终端
+    # ==============================================
+    # 开发工具 & 编辑器
+    # ==============================================
+    vscode               # VS Code 代码编辑器
+    helix                # 现代化模态编辑器（轻量高效）
+    zed-editor-fhs       # Zed编辑器（FHS兼容版）
+    jetbrains.clion      # JetBrains C/C++ 集成开发环境
+    gcc                  # GNU C/C++ 编译器
+    cmake                # 跨平台构建工具
+    ninja                # 高性能构建系统
+    clang                # LLVM编译器前端（C/C++/Objective-C）
+    nil                  # Nix语言LSP服务器（代码补全/提示）
+    kitty                # 高性能GPU加速终端模拟器
+    zed-editor-fhs       # Zed 高性能轻量级代码编辑器
+    nix-alien-pkgs.nix-alien # 把非Nix包转为Nix可用格式
 
-    nil  # 安装 nil LSP 服务器
+    # ==============================================
+    # 日常社交 / 通讯
+    # ==============================================
+    wechat                # 微信（系统级安装，全局可用）
+    qq                    # QQ 即时通讯工具
+    xwayland-satellite    # X11应用兼容层，解决微信/QQ启动依赖
 
-    wechat      # 微信（系统级，避免多用户重复安装）
-    qq
-    xwayland-satellite 	# X11应用兼容，微信能启动
+    # ==============================================
+    # 安卓设备 / 手机管理
+    # ==============================================
+    qtscrcpy              # 图形化手机投屏+控制工具（基于scrcpy）
+    android-tools         # 安卓调试工具集（adb/fastboot等）
+    usbutils              # USB设备管理工具（lsusb等）
 
-    qtscrcpy      # 手机投屏软件
-    android-tools
-    usbutils      # usb软件包
+    # ==============================================
+    # 浏览器
+    # ==============================================
+    google-chrome         # Google Chrome 浏览器
 
-    google-chrome
+    # ==============================================
+    # 桌面美化 & 窗口工具
+    # ==============================================
+    wl-clipboard         # Wayland桌面剪贴板命令行工具
+    layer-shell-qt       # Qt应用Wayland层Shell支持（桌面组件）
+    qttools              # Qt开发/调试工具集
+    kdePackages.sddm-kcm # KDE中配置SDDM登录界面的工具
+    showmethekey         # 屏幕实时显示按键输入（录屏/演示用）
+
+    # ==============================================
+    # 系统监控 & 硬件管理
+    # ==============================================
+    btop-cuda            # 带CUDA支持的系统资源监控器（CPU/GPU/内存）
+    libnotify            # 桌面通知支持库（应用弹窗通知）
+    pwvucontrol          # PipeWire音频控制工具
+    coppwr               # PipeWire低延迟音频管理工具
+    harfbuzz             # 文本排版渲染引擎，优化字体显示
+    app2unit             # 应用转systemd单元工具
+
+    # ==============================================
+    # 多媒体 & 影音
+    # ==============================================
+    mpv-unwrapped        # 极简高性能视频播放器
+    audacious            # 轻量级音乐播放器
+    audacious-plugins    # Audacious音乐播放器插件集
+    ffmpeg-full          # 完整功能版音视频编解码工具
+    friture              # 实时音频分析/频谱可视化工具
+    piper-tts            # 开源文本转语音（TTS）工具
+
+    # ==============================================
+    # 游戏 & 兼容层
+    # ==============================================
+    (lutris.override {   # 游戏管理器，管理Steam/模拟器/Windows游戏
+      extraLibraries = pkgs: [ ];
+      extraPkgs = pkgs: [ ];
+    })
+    winePackages.waylandFull # Wine Wayland完整版，运行Windows应用
+
+    # ==============================================
+    # 办公 & 生产力
+    # ==============================================
+    thunderbird          # Mozilla 邮件/日历客户端
+    texliveFull          # 完整LaTeX排版环境
+    texlivePackages.dvipng # LaTeX转PNG图片工具
+    miktex               # 轻量级LaTeX发行版
+
+    # ==============================================
+    # 小众工具 & 特色软件
+    # ==============================================
+    nirius               # 系统工具/美化工具
+    chameleos            # 主题/外观切换工具
+    kurve                # KDE 经典贪吃蛇小游戏（休闲用）
   ];
+
+  # 自定义 MPV 播放器（使用完整功能的 ffmpeg）
+  nixpkgs.overlays = with pkgs; [
+    (self: super: {
+      mpv-unwrapped = super.mpv-unwrapped.override {
+        ffmpeg = ffmpeg-full; # 替换为全功能 ffmpeg
+      };
+    })
+  ];
+
 }

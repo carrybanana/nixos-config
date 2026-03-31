@@ -32,6 +32,20 @@
     cpu.intel.updateMicrocode = true; # Intel CPU
     # cpu.amd.updateMicrocode = true; # AMD CPU
   };
+  # 开启图形加速支持
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs;[
+      nvidia-vaapi-driver
+    ];
+  };
+
+  # 3. 启用 Soteria 安全增强模块
+  security.soteria.enable = true;
+
+  # 启用 UDisks2 磁盘管理服务（桌面环境必备）
+  services.udisks2.enable = true;
 
   # 网络基础配置
   networking = {

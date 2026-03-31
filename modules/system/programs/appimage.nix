@@ -3,8 +3,9 @@
 { config, lib, pkgs, ... }:
 
 {
-  # 启用 AppImage 官方支持
+  # 启用 AppImage 直接运行支持
   programs.appimage = {
     enable = true;
+    binfmt = true;
   };
 }
