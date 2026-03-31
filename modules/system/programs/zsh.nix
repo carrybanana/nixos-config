@@ -1,5 +1,3 @@
-# /etc/nixos/modules/system/programs.nix
-
 { config, lib, pkgs, ... }:
 
 {
@@ -71,5 +69,5 @@
   };
 
   # 将默认 Shell 设置为 zsh
-  users.users.baizhu945.shell = pkgs.zsh;
+  users.users.carry.shell = pkgs.zsh;
 }
