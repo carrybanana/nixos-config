@@ -18,7 +18,7 @@
 
     # hyprland
     hyprland = {
-      url = "github:hyprwm/Hyprland";         # Hyprland 主仓库
+      url = "git+https://github.com/hyprwm/Hyprland.git";         # Hyprland 主仓库
 #      inputs.nixpkgs.follows = "nixpkgs";
     };
 
