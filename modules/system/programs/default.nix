@@ -85,7 +85,7 @@
     # ==============================================
     wl-clipboard         # Wayland桌面剪贴板命令行工具
     kdePackages.layer-shell-qt       # Qt应用Wayland层Shell支持（桌面组件）
-    qttools              # Qt开发/调试工具集
+    qt6.tools            # Qt开发/调试工具集
     kdePackages.sddm-kcm # KDE中配置SDDM登录界面的工具
     showmethekey         # 屏幕实时显示按键输入（录屏/演示用）
 
