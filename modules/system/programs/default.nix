@@ -52,6 +52,7 @@
     cmake                # 跨平台构建工具
     ninja                # 高性能构建系统
     clang                # LLVM编译器前端（C/C++/Objective-C）
+    clang-tools          # 包含 clangd、clang-tidy、clang-format 等所有工具
     nil                  # Nix语言LSP服务器（代码补全/提示）
     kitty                # 高性能GPU加速终端模拟器
 
