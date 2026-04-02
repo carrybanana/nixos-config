@@ -98,7 +98,7 @@
                 experimental-features = [ "nix-command" "flakes" ];     # 启用实验性功能：nix命令增强和flakes支持
                 keep-outputs = true;  # 减少重复编译
                 keep-derivations = true;
-                download-buffer-size = 134217728;  # 默认较小，改为 64M 或 128M
+                download-buffer-size = "128M";  # 默认较小，改为 64M 或 128M
               };
             })
 
@@ -150,7 +150,7 @@
                 experimental-features = [ "nix-command" "flakes" ];     # 启用实验性功能：nix命令增强和flakes支持
                 keep-outputs = true;  # 减少重复编译
                 keep-derivations = true;
-                download-buffer-size = 134217728;  # 默认较小，改为 64M 或 128M
+                download-buffer-size = "128M";  # 默认较小，改为 64M 或 128M
               };
             })
 
