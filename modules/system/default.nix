@@ -32,7 +32,7 @@
     cpu.intel.updateMicrocode = true; # Intel CPU
     # cpu.amd.updateMicrocode = true; # AMD CPU
   };
-  # 开启图形加速支持
+  # 开启图形加速支持,32位应用支持
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
