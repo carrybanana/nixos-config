@@ -4,5 +4,5 @@
   # 启用 OnlyOffice
   services.onlyoffice = {
     enable = true;
-  }
+  };
 }
