@@ -48,6 +48,6 @@
     # 启用剪贴板管理
     wl-clipboard-rs
 
-    waybar
+    # waybar
   ];
 }
