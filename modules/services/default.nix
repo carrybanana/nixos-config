@@ -32,12 +32,12 @@
   # networking.firewall.allowedTCPPorts = [ 1080 ];
 
 #   # Clash Verge 代理客户端
-#   programs.clash-verge = {
-#     enable = true;
-#     group = "wheel";
+  programs.clash-verge = {
+    enable = true;
+    group = "wheel";
 #     tunMode = true;
 #     serviceMode = true;
-#   };
+  };
 
   # 4. 磁盘优化（fstrim，SSD必备）
   services.fstrim = {
