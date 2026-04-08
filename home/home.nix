@@ -4,8 +4,8 @@
 {
   # 导入用户级模块
   imports = [
-    ./modules/shell/default.nix
-    ./modules/apps/default.nix
+    ./kitty/default.nix
+    ./hyprland/default.nix
   ];
 
   # 用户基础设置（Shell、Home目录）
