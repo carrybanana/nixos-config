@@ -21,7 +21,5 @@
   ];
 
   # ✅ NIXOS 官方原生：把 config.kdl 放入 ~/.config/niri
-  users.users.carry = {
-    home.file.".config/niri/config.kdl".source = ./config.kdl;
-  };
+  users.users.carry.home.file.".config/niri/config.kdl".source = ./config.kdl;
 }

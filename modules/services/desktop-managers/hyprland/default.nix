@@ -52,7 +52,5 @@
   ];
 
   # ✅ NIXOS 官方原生：把 hyprland.conf 放入 ~/.config/hypr
-  users.users.carry = {
-    home.file.".config/hypr/hyprland.conf".source = ./hyprland.conf;
-  };
+  users.users.carry.home.file.".config/hypr/hyprland.conf".source = ./hyprland.conf;
 }
