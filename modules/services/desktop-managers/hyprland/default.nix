@@ -50,7 +50,4 @@
     # 启用剪贴板管理
     wl-clipboard-rs
   ];
-
-  # ✅ NIXOS 官方原生：把 hyprland.conf 放入 ~/.config/hypr
-  users.users.carry.home.file.".config/hypr/hyprland.conf".source = ./hyprland.conf;
 }
