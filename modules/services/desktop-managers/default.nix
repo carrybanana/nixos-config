@@ -4,8 +4,8 @@
   # 导入模块
   imports = [
     ./gnome.nix
-    ./hyprland.nix
+    ./hyprland/default.nix
     ./kde-plasma.nix
-    ./niri.nix
+    ./niri/default.nix
   ];
 }

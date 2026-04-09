@@ -28,4 +28,18 @@
     XMODIFIERS = "@im=fcitx";  # 官方明确：Wayland 下 XMODIFIERS 用 fcitx（不是5）
     INPUT_METHOD = "fcitx5";   # 仅标识输入法，不影响实际运行
   };
+
+  environment.sessionVariables = {
+    # 1. 让 KDE/Qt 程序在 Wayland 下正常渲染（解决模糊、卡顿、界面异常）
+    NIXOS_OZONE_WL = "1";
+    # 3. GTK 程序的输入法（你注释掉了 = 不启用）
+    # GTK_IM_MODULE = "fcitx";
+    # 4. Qt 程序使用 fcitx 输入法
+    QT_IM_MODULE = "fcitx";
+    # 5. Qt5 程序专用（兼容老软件）
+    QT5_IM_MODULE = "fcitx";
+    # 6. X11 环境下让输入法生效
+    XMODIFIERS = "@im=fcitx";
+  };
+
 }

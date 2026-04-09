@@ -18,6 +18,8 @@
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     # 同步 xdg-desktop-portal-hyprland 版本（修复剪贴板/文件选择器问题）
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    withUWSM = true;
+    xwayland.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
@@ -40,14 +42,17 @@
     xdg-desktop-portal-hyprland
 
     # 必需，系统状态栏 / 面板，显示时间、音量、网络、工作区、系统托盘等信息。
-#    hyprlandPlugins.hyprbars
+    waybar
 
-    # hyprland默认应用启动器
-    hyprlauncher
+    # 应用启动器
+    rofi
 
     # 启用剪贴板管理
     wl-clipboard-rs
-
-    # waybar
   ];
+
+  # ✅ NIXOS 官方原生：把 hyprland.conf 放入 ~/.config/hypr
+  users.users.carry = {
+    home.file.".config/hypr/hyprland.conf".source = ./hyprland.conf;
+  };
 }

@@ -12,6 +12,7 @@
 
       noto-fonts
       noto-fonts-cjk-sans
+      noto-fonts-color-emoji
       noto-fonts-cjk-serif
       wqy_zenhei
 
@@ -35,12 +36,23 @@
       # jetbrains-mono
       # nerd-fonts.jetbrains-mono
     ];
+    # 启用系统默认字体包（推荐开启）
+    enableDefaultPackages = true;
+
     fontconfig = {
+      # 启用字体配置（必须开，否则字体不生效）
       enable = true;
+
+      # 设置系统三大类默认字体
       defaultFonts = {
-        serif = [ "Noto Serif" "Noto Serif CJK SC" ];
-        sansSerif = [ "Noto Sans" "Noto Sans CJK SC" ];
-        monospace = [ "JetBrains Mono Nerd Font" ];
+        # 衬线字体（文章、书籍、网页正文）
+        serif = ["Noto Serif" "Noto Serif CJK SC"];
+
+        # 无衬线字体（系统界面、按钮、菜单、标题）
+        sansSerif = ["Noto Sans"  "Noto Sans CJK SC"];
+
+        # 等宽字体（终端、代码编辑器、终端模拟器）
+        monospace = ["Fira Code"];
       };
     };
   };

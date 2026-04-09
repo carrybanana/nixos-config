@@ -1,12 +1,6 @@
 { config, lib, pkgs, inputs, ... }:
 
 {
-#   # niri + noctalia
-#   environment.systemPackages = with pkgs; [
-#     inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.niri
-#     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-#   ];
-
   # ==============================================
   # 1. Niri：启用官方模块化配置（替代直接加 systemPackages）
   # ==============================================
@@ -26,4 +20,8 @@
     alacritty	  # niri默认的终端
   ];
 
+  # ✅ NIXOS 官方原生：把 config.kdl 放入 ~/.config/niri
+  users.users.carry = {
+    home.file.".config/niri/config.kdl".source = ./config.kdl;
+  };
 }
