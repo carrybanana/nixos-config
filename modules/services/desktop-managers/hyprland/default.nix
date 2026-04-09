@@ -18,6 +18,7 @@
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     # 同步 xdg-desktop-portal-hyprland 版本（修复剪贴板/文件选择器问题）
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+
     withUWSM = true;
     xwayland.enable = true;
   };
