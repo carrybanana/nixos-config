@@ -10,7 +10,7 @@
     ./virtualisation/default.nix        # 虚拟化服务
   ];
 
-  # 全局配置：对 stable 系统 100% 生效
+  # 允许非自由软件（系统级，如NVIDIA驱动、Chrome）
   nixpkgs.config = {
     allowUnfree = true;          # 允许闭源软件
     nvidia.acceptLicense = true; # 同意NVIDIA协议

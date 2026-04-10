@@ -15,14 +15,6 @@
     ./zsh.nix
   ];
 
-  # 允许非自由软件（系统级，如NVIDIA驱动、Chrome）
-  nixpkgs.config = {
-    allowUnfree = true;
-    allowUnfreePredicate = true; # 强制允许所有非自由包
-    nvidia.acceptLicense = true;
-  };
-
-
   # 启用flatpak
   services.flatpak = {
     enable = true;
