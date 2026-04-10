@@ -13,7 +13,6 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # niri
@@ -35,8 +34,8 @@
 
     # home manager
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11"; # home-manager master对应unstable
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager/master"; # home-manager master对应unstable
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # flake-utils 辅助工具
@@ -76,14 +75,6 @@
   let
     system = "x86_64-linux";
 
-    # 不稳定版
-    pkgs-unstable = import nixpkgs-unstable {
-      inherit system;
-      config = {
-        allowUnfree = true;
-        nvidia.acceptLicense = true;
-      };
-    };
   in {
     nixosConfigurations = {
 
@@ -93,7 +84,6 @@
 
         specialArgs = {
           inherit inputs;         # 传递所有flakes源
-          inherit pkgs-unstable;  # 传递不稳定版 ✅
         };
 
         modules = [
@@ -120,6 +110,14 @@
           ./hosts/laptop/configuration.nix
           ./hosts/laptop/hardware-configuration.nix
           ./modules/default.nix
+
+          agenix.nixosModules.default
+          catppuccin.nixosModules.catppuccin
+          home-manager.nixosModules.home-manager
+          {
+            environment.systemPackages = [agenix.packages.${system}.default];
+          }
+
         ];
       };
     };
