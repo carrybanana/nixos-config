@@ -13,18 +13,18 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos";
 
     # niri
     niri = {
       url = "github:YaLTeR/niri";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # noctalia shell
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # hyprland
@@ -35,7 +35,7 @@
     # home manager
     home-manager = {
       url = "github:nix-community/home-manager/master"; # home-manager master对应unstable
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # flake-utils 辅助工具
@@ -46,13 +46,13 @@
     # agenix
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # nixvim
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     catppuccin.url = "github:catppuccin/nix";
@@ -61,7 +61,6 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-unstable,
     niri,
     noctalia,
     hyprland,
