@@ -35,8 +35,8 @@
 
     # home manager
     home-manager = {
-      url = "github:nix-community/home-manager/master"; # home-manager master对应unstable
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      url = "github:nix-community/home-manager/release-25.11"; # home-manager master对应unstable
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # flake-utils 辅助工具
