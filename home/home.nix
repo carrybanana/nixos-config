@@ -10,6 +10,6 @@
   home = {
     username = "carry";
     homeDirectory = "/home/carry";
-    stateVersion = "25.11";  # ← 启用这行，绑定系统版本（关键）
+    stateVersion = "unstable";  # 绑定系统版本
   };
 }

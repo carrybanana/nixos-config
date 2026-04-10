@@ -39,13 +39,10 @@
     download-buffer-size = "128M";  # 默认较小，改为 64M 或 128M
   };
 
-  # 集成 Home Manager，并传递 stateVersion
+  # 集成 Home Manager
   home-manager = {
     useGlobalPkgs = true;     # 允许用户使用系统级pkgs
     useUserPackages = true;   # 启用用户专属包
-    extraSpecialArgs = { inherit inputs pkgs-unstable; }; # ✅ 传递 unstable 和 flake源
-
-    # 关联用户Home配置（用户名为carry）
-    users.carry = import ../home/home.nix;
+    users.carry = import ../home/home.nix;  # 关联用户Home配置（用户名为carry）
   };
 }
