@@ -10,6 +10,12 @@
     ./virtualisation/default.nix        # 虚拟化服务
   ];
 
+  # 全局配置：对 stable 系统 100% 生效
+  nixpkgs.config = {
+    allowUnfree = true;          # 允许闭源软件
+    nvidia.acceptLicense = true; # 同意NVIDIA协议
+  };
+
   # 全局 Nix 镜像配置（已加入：清华+中科大+官方）
   nix.settings = {
     substituters = [

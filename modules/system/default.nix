@@ -101,14 +101,14 @@
     "d /etc/nixos 0755 carry users - -"
   ];
 
-  # 启用系统文档功能，特别是 man 手册（manual pages）并优化其使用体验。
-  documentation = {
-    enable = true;
-    man = {
-      cache.enable = true;
-      man-db = {
-        enable = true;
-      };
-    };
-  };
+#   # 启用系统文档功能，特别是 man 手册（manual pages）并优化其使用体验。
+#   documentation = {
+#     enable = true;
+#     man = {
+#       cache.enable = true;
+#       man-db = {
+#         enable = true;
+#       };
+#     };
+#   };
 }

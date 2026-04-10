@@ -76,15 +76,6 @@
   let
     system = "x86_64-linux";
 
-    # 稳定版
-    pkgs = import nixpkgs {
-      inherit system;
-      config = {
-        allowUnfree = true;
-        nvidia.acceptLicense = true;
-      };
-    };
-
     # 不稳定版
     pkgs-unstable = import nixpkgs-unstable {
       inherit system;
@@ -102,7 +93,6 @@
 
         specialArgs = {
           inherit inputs;         # 传递所有flakes源
-          inherit pkgs;           # 传递稳定版pkgs ✅
           inherit pkgs-unstable;  # 传递不稳定版 ✅
         };
 
