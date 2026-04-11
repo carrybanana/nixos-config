@@ -3,7 +3,11 @@
 {
   # 导入用户级模块
   imports = [
-    ./kitty/default.nix
+    ./hyprland
+    ./kitty
+    ./niri
+    ./secrets
+    ./shell
   ];
 
   # 用户基础设置（Shell、Home目录）

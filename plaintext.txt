@@ -1,42 +1,20 @@
-
-/etc/nixos/
-├── flake.nix                           # 系统级Flake入口（管理系统配置）
-├── flake.lock                          # 系统依赖锁定文件（自动生成）
-│
-├── modules/                            # 共享系统模块（所有机器通用）
-│   ├── system/                         # 基础系统设置（时区、本地化等）
-│   │   └── default.nix
-│   ├── desktop/                        # 桌面环境配置（GNOME/KDE等
-│   │   └── default.nix
-│   └── services/                       # 系统服务配置（SSH、Docker等）
-│       └── default.nix
-│
-├── hosts/                              # 👈 新增：按主机划分的专用配置
-│   ├── laptop/
-│   │   ├── configuration.nix           # 笔记本专属系统配置
-│   │   └── hardware-configuration.nix  # 硬件自动配置（安装时生成, 仅用于此机，勿手动改）
-│   │
-│   └── desktop/
-│       ├── configuration.nix           # 台式机专属系统配置
-│       └── hardware-configuration.nix  # 硬件自动配置（安装时生成, 仅用于此机，勿手动改）
-│
-├── home/                               # Home Manager用户配置（独立Flake, 可选是否区分）
-│   ├── flake.nix                       # 用户级Flake入口（管理用户配置）
-│   ├── flake.lock                      # 用户依赖锁定文件（自动生成）
-│   ├── home.nix                        # 默认用户配置（通用）
-│   │
-│   ├── hosts/                          # 👈 可选：若用户配置也需区分
-│   │   ├── laptop.nix
-│   │   └── desktop.nix
-│   │
-│   ├── modules/                        # 共享用户模块
-│   │   ├── shell/                      # Shell配置（Fish/Alacritty）
-│   │   │   └── default.nix
-│   │   └── apps/                       # 编辑器配置（Neovim）
-│   │       └── default.nix
-│   │
-│   └── secrets/                        # 敏感信息（如密码、API密钥）
-│       └── .gitignore                  # 确保敏感信息不提交到Git
-│
-└── overlays/                           # 自定义软件包覆盖（可选）
-    └── default.nix                     # 修改或添加软件包定义
+/etc/nixos
+├── flake.nix          # 入口：定义系统、主机、模块、home-manager
+├── flake.lock         # 锁定版本，保证可复现
+├── home/carry/        # 用户级配置（home-manager）
+│   ├── kitty          # 终端配置
+│   ├── secrets        # 密钥/敏感配置
+│   └── shell          # shell 环境
+├── hosts/             # 多主机配置（台式机 + 笔记本）
+│   ├── desktop
+│   └── laptop
+├── modules/           # 系统全局模块（核心！）
+│   ├── fonts          # 字体
+│   ├── input-method   # 输入法（fcitx5）
+│   ├── services       # 桌面环境、显示管理器
+│   │   ├── desktop-managers/gnome、hyprland、kde、niri
+│   │   └── display-managers/sddm 等
+│   ├── system/programs  # 系统级软件（firefox、nvim、vscode、steam…）
+│   └── virtualisation   # 虚拟化（qemu-kvm）
+├── overlays/          # 包覆盖、自定义编译选项
+└── Wallpapers/        # 壁纸
