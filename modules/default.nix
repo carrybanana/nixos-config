@@ -43,6 +43,6 @@
   home-manager = {
     useGlobalPkgs = true;     # 允许用户使用系统级pkgs
     useUserPackages = true;   # 启用用户专属包
-    users.carry = import ../home/home.nix;  # 关联用户Home配置（用户名为carry）
+    users.carry = import ../home/carry/default.nix;  # 关联用户Home配置（用户名为carry）
   };
 }
