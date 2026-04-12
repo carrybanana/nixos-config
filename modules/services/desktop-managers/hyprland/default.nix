@@ -24,7 +24,7 @@
 #       hyprland-plugins
 #     ];
 
-    withUWSM = true;
+    withUWSM = false;
     xwayland.enable = true;
   };
 
