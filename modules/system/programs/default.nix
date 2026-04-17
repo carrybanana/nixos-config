@@ -44,7 +44,7 @@
     vscode               # VS Code 代码编辑器
     helix                # 现代化模态编辑器（轻量高效）
     zed-editor-fhs       # Zed编辑器（FHS兼容版）
-    jetbrains.clion      # JetBrains C/C++ 集成开发环境
+    jetbrains-toolbox    # JetBrains 管理工具
     gcc                  # GNU C/C++ 编译器
     cmake                # 跨平台构建工具
     ninja                # 高性能构建系统
