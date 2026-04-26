@@ -49,12 +49,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # nixvim
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     catppuccin.url = "github:catppuccin/nix";
   };
 
@@ -67,7 +61,6 @@
     home-manager,
     flake-utils,
     agenix,
-    nixvim,
     catppuccin,
     ...
   } @ inputs:
