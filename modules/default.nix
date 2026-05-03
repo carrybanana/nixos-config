@@ -22,11 +22,13 @@
       "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"  # 清华
       "https://mirrors.ustc.edu.cn/nix-channels/store"  # 中科大
       "https://cache.nixos.org/"  # 官方兜底
+      "https://nix-community.cachix.org"
     ];
     # 仅保留官方公钥（清华/中科大无独立公钥）
     trusted-public-keys = [
       # 官方源的公钥
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
 
     # 关键：添加可信用户
