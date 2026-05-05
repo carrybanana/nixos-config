@@ -8,6 +8,7 @@
     enable = true;
     extensions = with pkgs.vscode-extensions; [
       ms-ceintl.vscode-language-pack-zh-hans  # 中文语言包
+      github.copilot-chat
     ];
   };
 }
