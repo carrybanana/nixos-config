@@ -34,7 +34,7 @@
     wget                 # 命令行下载工具，支持HTTP/HTTPS/FTP下载
     git                  # 版本控制工具，代码管理必备
     tree                 # 以树形结构展示目录文件列表
-    fastfetch            # 系统信息展示工具（比neofetch更快）
+    fastfetch            # 系统信息展示工具
     unzip                # 解压zip压缩包
     unrar                # 解压rar压缩包
 
@@ -95,27 +95,8 @@
     coppwr               # PipeWire低延迟音频管理工具
 
     # ==============================================
-    # 多媒体 & 影音
-    # ==============================================
-    mpv-unwrapped        # 极简高性能视频播放器
-    audacious            # 轻量级音乐播放器
-    audacious-plugins    # Audacious音乐播放器插件集
-    ffmpeg-full          # 完整功能版音视频编解码工具
-    friture              # 实时音频分析/频谱可视化工具
-
-    # ==============================================
     # 远程桌面
     # ==============================================
     rustdesk-flutter
   ];
-
-  # 自定义 MPV 播放器（使用完整功能的 ffmpeg）
-  nixpkgs.overlays = with pkgs; [
-    (self: super: {
-      mpv-unwrapped = super.mpv-unwrapped.override {
-        ffmpeg = ffmpeg-full; # 替换为全功能 ffmpeg
-      };
-    })
-  ];
-
 }
