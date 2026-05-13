@@ -51,7 +51,7 @@
     waybar
 
     # 应用启动器
-    rofi
+    hyprlauncher
 
     # 启用剪贴板管理
     wl-clipboard-rs
