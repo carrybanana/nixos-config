@@ -76,7 +76,7 @@ hl.config({
         resize_on_border = false,
         -- 开启前请阅读：https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/
         allow_tearing = false,
-        layout = "dwindle", -- 默认布局：dwindle
+        layout = "scrolling", -- 默认布局：scrolling
     },
     decoration = {
         rounding       = 10,  -- 窗口圆角
@@ -212,6 +212,25 @@ hl.gesture({
 ---- 快捷键绑定 ----
 ---------------------
 local mainMod = "SUPER" -- 主修饰键：Win键
+
+-- ======================
+-- 布局切换 终极修复版（纯Lua原生，零报错）
+-- ======================
+-- 切换到 Dwindle 布局
+hl.bind(mainMod .. " + ALT + D", function()
+    hl.config({ general = { layout = "dwindle" } })
+end)
+
+-- 切换到 Master 布局
+hl.bind(mainMod .. " + ALT + M", function()
+    hl.config({ general = { layout = "master" } })
+end)
+
+-- 切换到 Scrolling 滚动布局
+hl.bind(mainMod .. " + ALT + S", function()
+    -- 用完整配置写入方式，彻底规避 layoutmsg 找不到的问题
+    hl.config({ general = { layout = "scrolling" } })
+end)
 
 -- 基础快捷键
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal)) -- 打开终端
