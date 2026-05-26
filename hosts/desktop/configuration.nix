@@ -21,5 +21,26 @@
 
   # 系统状态版本（保持原配置，首次安装后勿改）
   system.stateVersion = "25.05";
+
+  # ✅ 安全、无红字、官方推荐的持久化配置
+  environment.persistence."/persist" = {
+    # 只持久化「安全、不与系统冲突」的目录
+    directories = [
+      "/etc/nixos"                  # 你的系统配置（核心，必须持久）
+      "/var/lib"                    # 系统服务数据
+      "/var/log"                    # 系统日志
+      "/var/cache"                  # 缓存（可选，持久化可加速）
+      "/srv"                        # 服务数据
+      "/var/tmp"                    # 临时文件
+      "/etc/NetworkManager/system-connections"  # Wi-Fi/网络配置
+    ];
+
+    # 只持久化「系统允许、无冲突」的文件
+    files = [
+      "/etc/machine-id"             # 系统唯一ID（必须持久）
+      "/etc/ssh/ssh_host_ed25519_key" # SSH密钥
+      "/etc/ssh/ssh_host_rsa_key"   # SSH密钥
+    ];
+  };
 }
 

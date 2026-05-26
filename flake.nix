@@ -53,6 +53,8 @@
     catppuccin.url = "github:catppuccin/nix";
   };
 
+  impermanence.url = "github:nix-community/impermanence";     # 新增：持久化模块
+
   outputs = {
     self,
     nixpkgs,
@@ -63,6 +65,7 @@
     flake-utils,
     agenix,
     catppuccin,
+    impermanence,
     ...
   } @ inputs:
   let
@@ -84,6 +87,7 @@
           ./hosts/desktop/hardware-configuration.nix  # 原硬件配置，用于加载硬件扫描结果
           ./modules/default.nix
 
+          impermanence.nixosModules.impermanence    # 新增：启用 impermanence
           agenix.nixosModules.default
           catppuccin.nixosModules.catppuccin
           home-manager.nixosModules.home-manager
@@ -99,12 +103,13 @@
         inherit system;
         specialArgs = { inherit inputs; };
         modules = [
-          agenix.nixosModules.default  # ← 启用 agenix 加密模块
+          agenix.nixosModules.default
           ./hosts/laptop/configuration.nix
           ./hosts/laptop/hardware-configuration.nix
           ./modules/default.nix
 
-          agenix.nixosModules.default
+          impermanence.nixosModules.impermanence    # 新增：启用 impermanence
+          agenix.nixosModules.default           # ← 启用 agenix 加密模块
           catppuccin.nixosModules.catppuccin
           home-manager.nixosModules.home-manager
           {

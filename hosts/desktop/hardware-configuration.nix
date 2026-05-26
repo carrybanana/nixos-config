@@ -13,17 +13,24 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+#   fileSystems."/" =
+#     { device = "/dev/disk/by-uuid/cdce2bcf-bfa9-4862-bba7-b374bf908624";
+#       fsType = "btrfs";
+#       options = [
+#         "subvol=root"
+#         "compress=zstd"
+#         "x-initrd.mount"
+#         "discard=async"
+#         "noatime"
+#         "commit=120"
+#       ];
+#     };
+
+  # 根目录改为 tmpfs 内存文件系统（重启清空）
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/cdce2bcf-bfa9-4862-bba7-b374bf908624";
-      fsType = "btrfs";
-      options = [
-        "subvol=root"
-        "compress=zstd"
-        "x-initrd.mount"
-        "discard=async"
-        "noatime"
-        "commit=120"
-      ];
+    { device = "none";
+      fsType = "tmpfs";
+      options = [ "defaults" "size=45%" "mode=755" ];
     };
 
   fileSystems."/home" =
@@ -54,6 +61,19 @@
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
+
+  # 新增：持久化根目录 /persist 挂载 persist 子卷
+  fileSystems."/persist" = {
+    device = "/dev/disk/by-uuid/cdce2bcf-bfa9-4862-bba7-b374bf908624";
+    fsType = "btrfs";
+    options = [
+      "subvol=persist"
+      "compress=zstd"
+      "noatime"
+      "discard=async"
+    ];
+    neededForBoot = true; # 开机优先挂载
+  };
 
   swapDevices = [
     {
