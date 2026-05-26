@@ -51,9 +51,10 @@
     };
 
     catppuccin.url = "github:catppuccin/nix";
+
+    impermanence.url = "github:nix-community/impermanence";     # 新增：持久化模块
   };
 
-  impermanence.url = "github:nix-community/impermanence";     # 新增：持久化模块
 
   outputs = {
     self,
