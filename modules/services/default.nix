@@ -46,15 +46,15 @@
     interval = "daily";         # 直接设置执行频率（支持 "daily"、"weekly"、"monthly" 等）
   };
 
-  # 5. 快照工具（Snapper，根分区快照）
-  services.snapper = {
-    configs = {
-      root = {
-        SUBVOLUME = "/";  # 正确：已改为大写
-        TIMELINE_CREATE = true;   # 启用时间线快照
-        TIMELINE_CLEANUP = true;  # 启用时间线快照清理
-        NUMBER_LIMIT = "50";      # 保留50个快照（此选项为字符串类型，无需修改）
-      };
-    };
-  };
+#   # 5. 快照工具（Snapper，根分区快照）
+#   services.snapper = {
+#     configs = {
+#       root = {
+#         SUBVOLUME = "/";  # 正确：已改为大写
+#         TIMELINE_CREATE = true;   # 启用时间线快照
+#         TIMELINE_CLEANUP = true;  # 启用时间线快照清理
+#         NUMBER_LIMIT = "50";      # 保留50个快照（此选项为字符串类型，无需修改）
+#       };
+#     };
+#   };
 }
