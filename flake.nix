@@ -24,7 +24,7 @@
 
     # home manager
     home-manager = {
-      url = "github:nix-community/home-manager/master"; # home-manager master对应unstable
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
