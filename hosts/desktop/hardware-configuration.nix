@@ -8,89 +8,43 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "vmd" "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "vmd" "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-#   fileSystems."/" =
-#     { device = "/dev/disk/by-uuid/cdce2bcf-bfa9-4862-bba7-b374bf908624";
-#       fsType = "btrfs";
-#       options = [
-#         "subvol=root"
-#         "compress=zstd"
-#         "x-initrd.mount"
-#         "discard=async"
-#         "noatime"
-#         "commit=120"
-#       ];
-#     };
-
-  # 根目录改为 tmpfs 内存文件系统（重启清空）
   fileSystems."/" =
-    { device = "none";
-      fsType = "tmpfs";
-      options = [ "defaults" "size=45%" "mode=755" ];
+    { device = "/dev/disk/by-uuid/bc582e1d-3c4b-4248-835d-ba156b87ba88";
+      fsType = "btrfs";
+      options = [ "subvol=root" ];
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/cdce2bcf-bfa9-4862-bba7-b374bf908624";
+    { device = "/dev/disk/by-uuid/bc582e1d-3c4b-4248-835d-ba156b87ba88";
       fsType = "btrfs";
-      options = [
-        "subvol=home"
-        "compress=zstd"
-        "discard=async"
-        "noatime"
-      ];
+      options = [ "subvol=home" ];
     };
 
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/cdce2bcf-bfa9-4862-bba7-b374bf908624";
+  fileSystems."/persist" =
+    { device = "/dev/disk/by-uuid/bc582e1d-3c4b-4248-835d-ba156b87ba88";
       fsType = "btrfs";
-      options = [
-        "subvol=nix"
-        "noatime"
-        "compress=zstd"
-        "x-initrd.mount"
-        "discard=async"
-      ];
+      options = [ "subvol=persist" ];
+    };
+
+  fileSystems."/snapshots" =
+    { device = "/dev/disk/by-uuid/bc582e1d-3c4b-4248-835d-ba156b87ba88";
+      fsType = "btrfs";
+      options = [ "subvol=snapshots" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/423E-B438";
+    { device = "/dev/disk/by-uuid/FFB6-C1B8";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
-  # 新增：持久化根目录 /persist 挂载 persist 子卷
-  fileSystems."/persist" = {
-    device = "/dev/disk/by-uuid/cdce2bcf-bfa9-4862-bba7-b374bf908624";
-    fsType = "btrfs";
-    options = [
-      "subvol=persist"
-      "compress=zstd"
-      "noatime"
-      "discard=async"
-    ];
-    neededForBoot = true; # 开机优先挂载
-  };
+  swapDevices = [ ];
 
-  swapDevices = [
-    {
-      device = "/dev/disk/by-uuid/22cd47e7-e1ae-42e3-8de1-48c10d068544";
-      options = [ "discard" ];
-    }
-  ];
-
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp7s0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
-
-#   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
