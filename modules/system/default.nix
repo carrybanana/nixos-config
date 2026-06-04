@@ -95,11 +95,11 @@
     uid = 1000;  # 可选：固定UID，避免多设备同步冲突
   };
 
-  # 固化 /etc/nixos 权限：所有者=carry，组=users（你的实际默认组）
-  # 权限 0755 安全可控，不影响 git 操作和系统安全性
-  systemd.tmpfiles.rules = [
-    "d /etc/nixos 0755 carry users - -"
-  ];
+#   # 固化 /etc/nixos 权限：所有者=carry，组=users（你的实际默认组）
+#   # 权限 0755 安全可控，不影响 git 操作和系统安全性
+#   systemd.tmpfiles.rules = [
+#     "d /etc/nixos 0755 carry users - -"
+#   ];
 
   # 启用系统文档功能，特别是 man 手册（manual pages）并优化其使用体验。
   documentation = {
