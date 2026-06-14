@@ -48,7 +48,9 @@
     helix                # 现代化模态编辑器（轻量高效）
     zed-editor-fhs       # Zed编辑器（FHS兼容版）
     jetbrains-toolbox    # JetBrains 管理工具
+    qtcreator
     gcc16
+    gdb
     cmake                # 跨平台构建工具
     ninja                # 高性能构建系统
     clang                # LLVM编译器前端（C/C++/Objective-C）
@@ -97,4 +99,7 @@
     # ==============================================
     rustdesk-flutter
   ];
+
+  # 系统级 Qt 整体配置、主题样式、插件支持
+  qt.enable = true;
 }
