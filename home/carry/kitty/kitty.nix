@@ -1,12 +1,12 @@
-{ pkgs, ... }: {
-
-  # 启用 Home Manager 管理 Kitty 配置
+{ config, lib, pkgs, inputs, ... }:
+{
   programs.kitty = {
     enable = true;
-
     settings = {
-      confirm_os_window_close = 0;  # 关闭退出确认
+      # 智能关闭确认
+      confirm_os_window_close = 0;
+      # 全部关闭都确认
+      # confirm_os_window_close = 1;
     };
   };
-
 }

@@ -1,9 +1,13 @@
 { config, lib, pkgs, inputs, ... }:
 
 {
-  # 只管理配置文件
-  home.file.".config/niri/config.kdl" = {
-    source = ./config.kdl;
-    executable = false;  # 可写文件不需要执行权限
+  home.file.niri = {
+    source = ./niri;
+    target = ".config/niri";
+    recursive = true;
+    # niri 重载命令，文件改动自动生效
+    onChange = "pkill -SIGUSR1 niri";
+    # 本地手动改了文件切换报错时开启
+    force = true;
   };
 }

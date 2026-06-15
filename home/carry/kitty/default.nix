@@ -1,6 +1,7 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
+
 {
-  # 导入用户级模块
+  # 导入模块
   imports = [
     ./kitty.nix
   ];
