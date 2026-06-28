@@ -57,6 +57,7 @@
     clang-tools          # 包含 clangd、clang-tidy、clang-format 等所有工具
     nil                  # Nix语言LSP服务器（代码补全/提示）
     kitty                # 高性能GPU加速终端模拟器
+    opencode
 
     # ==============================================
     # 日常社交 / 通讯
@@ -98,6 +99,10 @@
     # 远程桌面
     # ==============================================
     rustdesk-flutter
+
+    # 密码安全
+#     bitwarden-desktop
+
   ];
 
   # 系统级 Qt 整体配置、主题样式、插件支持
