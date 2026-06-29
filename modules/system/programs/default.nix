@@ -45,6 +45,11 @@
     # ==============================================
     # 开发工具 & 编辑器
     # ==============================================
+    micro-full
+    tldr
+    eza
+    fd
+    bat
     helix                # 现代化模态编辑器（轻量高效）
     zed-editor-fhs       # Zed编辑器（FHS兼容版）
     jetbrains-toolbox    # JetBrains 管理工具
