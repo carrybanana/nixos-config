@@ -2,8 +2,9 @@
   description = "系统级配置入口（管理NixOS系统与服务）";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-#     nixpkgs.url = "github:NixOS/nixpkgs/master";
+#     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/master";
+#     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     # niri
     niri = {
@@ -20,6 +21,7 @@
     # hyprland
     hyprland = {
       url = "github:hyprwm/Hyprland";         # Hyprland 主仓库
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # home manager
@@ -73,7 +75,7 @@
         };
 
         modules = [
-          ./hosts/desktop/configuration.nix           # 主系统配置
+          ./hosts/desktop/configuration.nix
           ./hosts/desktop/hardware-configuration.nix  # 原硬件配置，用于加载硬件扫描结果
           ./modules/default.nix
 
