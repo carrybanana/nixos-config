@@ -2,8 +2,8 @@
   description = "系统级配置入口（管理NixOS系统与服务）";
 
   inputs = {
-#     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/master";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+#     nixpkgs.url = "github:NixOS/nixpkgs/master";
 #     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     # niri
