@@ -15,6 +15,16 @@
         device = "nodev";
         efiSupport = true;
         useOSProber = true;
+
+        extraEntries = ''
+  menuentry "CachyOS (nvme2n1 Limine)" --class gnu-linux --class os {
+    insmod part_gpt
+    insmod fat
+    insmod chain
+    search --no-floppy --fs-uuid --set=root C372-FAC2
+    chainloader /EFI/limine/limine_x64.efi
+  }
+  '';
       };
       efi = {
         canTouchEfiVariables = true;  # 允许修改EFI变量，支持UEFI引导
