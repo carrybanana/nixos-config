@@ -108,6 +108,8 @@
 
     # 密码安全
 #     bitwarden-desktop
+    kdePackages.keysmith
+    keepassxc
 
     # 下载
     qbittorrent
