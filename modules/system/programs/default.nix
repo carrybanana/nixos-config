@@ -4,7 +4,7 @@
   # 导入级模块
   imports = [
     ./appimage.nix
-    ./firefox.nix
+#     ./firefox.nix
     ./fish-shell.nix
     ./neovim.nix
     ./nix-ld.nix
