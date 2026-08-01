@@ -29,13 +29,13 @@
     # ==============================================
     # 系统基础工具
     # ==============================================
-    nixos-rebuild-ng     # 新一代NixOS系统重建工具，更简洁高效
-    wget                 # 命令行下载工具，支持HTTP/HTTPS/FTP下载
-    git                  # 版本控制工具，代码管理必备
-    tree                 # 以树形结构展示目录文件列表
-    fastfetch            # 系统信息展示工具
-    unzip                # 解压zip压缩包
-    unrar                # 解压rar压缩包
+    nixos-rebuild-ng      # 新一代NixOS系统重建工具，更简洁高效
+    wget                  # 命令行下载工具，支持HTTP/HTTPS/FTP下载
+    git                   # 版本控制工具，代码管理必备
+    tree                  # 以树形结构展示目录文件列表
+    fastfetch             # 系统信息展示工具
+    unzip                 # 解压zip压缩包
+    unrar                 # 解压rar压缩包
 
     cachix
     ffmpeg
@@ -50,19 +50,21 @@
     eza
     fd
     bat
-    helix                # 现代化模态编辑器（轻量高效）
-    zed-editor-fhs       # Zed编辑器（FHS兼容版）
-    jetbrains-toolbox    # JetBrains 管理工具
+    helix                 # 现代化模态编辑器（轻量高效）
+    zed-editor-fhs        # Zed编辑器（FHS兼容版）
+    jetbrains-toolbox     # JetBrains 管理工具
     qtcreator
     gcc16
     gdb
-    cmake                # 跨平台构建工具
-    ninja                # 高性能构建系统
+    cmake                 # 跨平台构建工具
+    ninja                 # 高性能构建系统
     pkg-config
-    clang                # LLVM编译器前端（C/C++/Objective-C）
-    clang-tools          # 包含 clangd、clang-tidy、clang-format 等所有工具
-    nil                  # Nix语言LSP服务器（代码补全/提示）
-    kitty                # 高性能GPU加速终端模拟器
+    clang                 # LLVM编译器前端（C/C++/Objective-C）
+    clang-tools           # 包含 clangd、clang-tidy、clang-format 等所有工具
+    nil                   # Nix语言LSP服务器（代码补全/提示）
+    kitty                 # 高性能GPU加速终端模拟器
+    fuzzel                # niri默认的启动器
+    alacritty	          # niri默认的终端
     opencode
 
     # ==============================================

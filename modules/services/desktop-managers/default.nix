@@ -8,5 +8,6 @@
     ./cosmic.nix
     ./gnome.nix
     ./kde-plasma.nix
+    ./noctalia.nix
   ];
 }
