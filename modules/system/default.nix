@@ -128,4 +128,6 @@
     autoEnable = true; # 和enable保持一致即可消除警告
   };
 
+  # Configuration Revision
+  system.configurationRevision = self.rev or self.dirtyRev or null;
 }
