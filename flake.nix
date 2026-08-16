@@ -86,6 +86,11 @@
           {
             environment.systemPackages = [agenix.packages.${system}.default];
           }
+	  
+	  # Configuration Revision
+	  ({ config, lib, pkgs, ... }: {
+            system.configurationRevision = self.rev or self.dirtyRev or null;
+          })
 
         ];
       };
@@ -110,7 +115,12 @@
           {
             environment.systemPackages = [agenix.packages.${system}.default];
           }
-
+          
+	  # Configuration Revision
+	  ({ config, lib, pkgs, ... }: {
+            system.configurationRevision = self.rev or self.dirtyRev or null;
+          })
+          
         ];
       };
     };
