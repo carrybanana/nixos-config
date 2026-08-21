@@ -119,7 +119,7 @@
     # 学习 & 效率
 #     ticktick
 #     notion-app
-#     obsidian
+    obsidian
   ];
 
   # 系统级 Qt 整体配置、主题样式、插件支持
