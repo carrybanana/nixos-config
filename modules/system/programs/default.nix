@@ -66,6 +66,7 @@
     fuzzel                # niri默认的启动器
     alacritty	          # niri默认的终端
     opencode
+    python3
 
     # ==============================================
     # 日常社交 / 通讯
