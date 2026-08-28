@@ -56,6 +56,7 @@
     qtcreator
     gcc16
     gdb
+    lld_22
     cmake                 # 跨平台构建工具
     ninja                 # 高性能构建系统
     pkg-config
