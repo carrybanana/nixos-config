@@ -10,7 +10,7 @@
     ./nix-ld.nix
     ./obs-studio.nix
     ./steam.nix
-    ./vscode.nix
+#     ./vscode.nix
     ./zsh.nix
   ];
 
