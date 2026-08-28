@@ -54,9 +54,8 @@
     zed-editor-fhs        # Zed编辑器（FHS兼容版）
     jetbrains-toolbox     # JetBrains 管理工具
     qtcreator
-    gcc16
+    gcc
     gdb
-    lld_22
     cmake                 # 跨平台构建工具
     ninja                 # 高性能构建系统
     pkg-config
