@@ -7,7 +7,7 @@
 #     ./niri/default.nix
 #     ./cosmic.nix
 #     ./gnome.nix
-#     ./kde-plasma.nix
+    ./kde-plasma.nix
     ./noctalia.nix
   ];
 }
