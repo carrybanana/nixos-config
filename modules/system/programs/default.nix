@@ -121,6 +121,9 @@
 #     ticktick
 #     notion-app
     obsidian
+
+    # 本地视频播放
+    haruna
   ];
 
   # 系统级 Qt 整体配置、主题样式、插件支持
