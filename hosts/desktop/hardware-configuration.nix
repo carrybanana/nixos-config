@@ -14,70 +14,14 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/bc582e1d-3c4b-4248-835d-ba156b87ba88";
-      fsType = "btrfs";
-      options = [
-        "subvol=root"
-        "compress=zstd"          # 官方推荐 zstd 压缩，平衡性能/空间
-        "space_cache=v2"         # 新版空间缓存，修复旧版内存泄漏
-        "discard=async"          # 异步TRIM，SSD专用，不阻塞IO
-        "autodefrag"              # 自动碎片整理，小文件/数据库友好
-        "noatime"                  # 关闭访问时间写入，减少磁盘写操作
-        "nodiratime"               # 目录不记录访问时间，配合 noatime
-      ];
-    };
-
-  fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/bc582e1d-3c4b-4248-835d-ba156b87ba88";
-      fsType = "btrfs";
-      options = [
-        "subvol=home"
-        "compress=zstd"
-        "space_cache=v2"
-        "discard=async"
-        "autodefrag"
-        "noatime"
-        "nodiratime"
-      ];
-    };
-
-  fileSystems."/persist" =
-    { device = "/dev/disk/by-uuid/bc582e1d-3c4b-4248-835d-ba156b87ba88";
-      fsType = "btrfs";
-      options = [
-        "subvol=persist"
-        "compress=zstd"
-        "space_cache=v2"
-        "discard=async"
-        "noatime"
-        "nodiratime"
-        # persist 存放系统持久化配置，文件少、碎片低，去掉 autodefrag
-      ];
-    };
-
-  fileSystems."/snapshots" =
-    { device = "/dev/disk/by-uuid/bc582e1d-3c4b-4248-835d-ba156b87ba88";
-      fsType = "btrfs";
-      options = [
-        "subvol=snapshots"
-        "compress=zstd"
-        "space_cache=v2"
-        "discard=async"
-        "noatime"
-        "nodiratime"
-        # 快照目录只读场景多，关闭 autodefrag
-      ];
+    { device = "/dev/disk/by-uuid/097732f5-b4a6-41fc-8e15-9e1958717c3b";
+      fsType = "xfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/FFB6-C1B8";
+    { device = "/dev/disk/by-uuid/7A52-12DA";
       fsType = "vfat";
-      options = [
-        "fmask=0022"
-        "dmask=0022"
-        "noatime"       # EFI分区极少读写，关闭atime减少写入
-        "shortname=mixed" # 兼容老旧UEFI固件短文件名
-      ];
+      options = [ "fmask=0022" "dmask=0022" ];
     };
 
   swapDevices = [ ];
