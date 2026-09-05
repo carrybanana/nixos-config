@@ -43,7 +43,7 @@
   # 4. 磁盘优化（fstrim，SSD必备）
   services.fstrim = {
     enable = true;
-    interval = "daily";         # 直接设置执行频率（支持 "daily"、"weekly"、"monthly" 等）
+    interval = "weekly";         # 直接设置执行频率（支持 "daily"、"weekly"、"monthly" 等）
   };
 
 #   # 5. 快照工具（Snapper，根分区快照）
