@@ -29,8 +29,14 @@
     };
   };
 
+
   # 内核配置（最新内核）
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+#   boot.kernelPackages = pkgs.linuxPackages_latest;    # 主线内核,linuxPackages_latest 是一个别名，等价于下面的写法
+#   boot.kernelPackages = pkgs.linuxKernel.packages.linux_latest;
+
+#   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;  # 跟随 nixpkgs 分支内锁定的 zen 版本（推荐）
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen_latest; # 跟踪上游 Zen 最新发布版（滚动）
+
 
   # 启用硬件支持，特别是固件（firmware）和 CPU 微码（microcode）更新，以确保系统稳定、安全并能正确驱动硬件设备。
   hardware = {

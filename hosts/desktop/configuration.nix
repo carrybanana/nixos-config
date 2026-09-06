@@ -6,6 +6,7 @@
 
 {
   services.xserver.videoDrivers = [ "nvidia" ];     # 开启nvidia驱动总开关
+#   boot.blacklistedKernelModules = [ "nouveau" ];    # 把开源nouveau驱动拉入黑名单不跟nvidia open驱动抢
 
   # NVIDIA显卡驱动
   hardware.nvidia = {
