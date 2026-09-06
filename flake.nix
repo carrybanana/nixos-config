@@ -76,7 +76,7 @@
 
         modules = [
           ./hosts/desktop/configuration.nix
-          ./hosts/desktop/hardware-configuration.nix  # 原硬件配置，用于加载硬件扫描结果
+          ./hosts/desktop/hardware-configuration.nix  # 硬件配置，用于加载硬件扫描结果
           ./modules/default.nix
 
           impermanence.nixosModules.impermanence    # 新增：启用 impermanence
