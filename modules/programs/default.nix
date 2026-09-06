@@ -1,19 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  # 导入级模块
-  imports = [
-    ./appimage.nix
-    ./firefox.nix
-    ./fish-shell.nix
-    ./neovim.nix
-    ./nix-ld.nix
-    ./obs-studio.nix
-    ./steam.nix
-    ./vscode.nix
-    ./zsh.nix
-  ];
-
   # 启用flatpak
   services.flatpak = {
     enable = true;
