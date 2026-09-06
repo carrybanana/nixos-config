@@ -11,11 +11,12 @@
   hardware.nvidia = {
     open = true;              # 启用开源 NVIDIA 内核模块
     nvidiaSettings = true;    # 安装 NVIDIA 控制面板
-
-    # 手动强制指定使用 NVIDIA Beta 测试版驱动包，而不是 NixOS 自动匹配的稳定版驱动。
-#     package = config.boot.kernelPackages.nvidiaPackages.beta;
-
     modesetting.enable = true;  # 硬件加速渲染（必须开）
+
+    # 手动强制指定使用 NVIDIA 驱动包，而不是 NixOS 自动匹配的稳定版驱动。
+#     package = config.boot.kernelPackages.nvidiaPackages.stable;   # nixpkgs 筛选过的稳定驱动，**系统默认使用**，兼容性优先。
+#     package = config.boot.kernelPackages.nvidiaPackages.beta;   # NVIDIA Beta 测试驱动，新特性，但稳定性不保证。
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
 
   programs.atop.atopgpu.enable = true;  # GPU 监控工具
