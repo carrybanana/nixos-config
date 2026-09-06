@@ -30,11 +30,16 @@
   };
 
 
-  # 内核配置（最新内核）
-#   boot.kernelPackages = pkgs.linuxPackages_latest;    # 主线内核,linuxPackages_latest 是一个别名，等价于下面的写法
+  # ============ 内核选择，每次只取消注释其中一行 ============
+#   boot.kernelPackages = pkgs.linuxKernel.packages.linux;                  # nixpkgs 默认主线内核
+
+#   boot.kernelPackages = pkgs.linuxPackages_latest;                        # 主线新版内核,linuxPackages_latest 是一个别名，等价于下面的写法
 #   boot.kernelPackages = pkgs.linuxKernel.packages.linux_latest;
 
-    boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;  # zen内核
+#     boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;            # Zen调优内核，均衡桌面游戏
+
+#     boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;         # Xanmod，跟随nixpkgs，补丁更多
+    boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;  # Xanmod 上游滚动最新，激进风险大
 
 
   # 启用硬件支持，特别是固件（firmware）和 CPU 微码（microcode）更新，以确保系统稳定、安全并能正确驱动硬件设备。
