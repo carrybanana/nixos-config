@@ -19,6 +19,7 @@
       options = [
         "noatime"           # 关闭访问时间更新，减少大量元数据写，noatime自带nodiratime
         "logbsize=256k"     # XFS 日志缓冲区大小，最大 256k，提升元数据吞吐（nix store 大量小文件、包解压）
+        "allocsize=1M"
       ];
     };
 

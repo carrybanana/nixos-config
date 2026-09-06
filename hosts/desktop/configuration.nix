@@ -22,7 +22,7 @@
   # 系统状态版本（保持原配置，首次安装后勿改）
   system.stateVersion = "26.05";
 
-  # ✅ 安全、无红字、官方推荐的持久化配置
+  # 官方推荐的持久化配置
 #   environment.persistence."/persist" = {
 #     # 只持久化「安全、不与系统冲突」的目录
 #     directories = [

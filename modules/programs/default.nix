@@ -129,4 +129,130 @@
 
   # 系统级 Qt 整体配置、主题样式、插件支持
   qt.enable = true;
+
+  # 启用 AppImage 直接运行支持
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+
+  # 系统级应用启用 Firefox
+  programs.firefox = {
+    enable = true;
+    languagePacks = [ "zh-CN" ];
+  };
+
+    # 启用Fish Shell
+  programs.fish = {
+    enable = true;
+  };
+
+  # ======================
+  # Neovim 主配置
+  # ======================
+  programs.neovim = {
+      enable = true;        # 启用 NixVim
+#     vimAlias = true;      # 输入 vim → 自动打开 nvim
+#     viAlias = true;       # 输入 vi → 自动打开 nvim
+    defaultEditor = false;# 不设为系统默认编辑器
+  };
+
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+        # ========== 核心系统库 ==========
+        stdenv.cc.cc zlib zstd curl openssl xz bzip2
+        libxml2 libsodium systemd util-linux attr acl
+
+        # ========== 基础图形界面 (所有桌面软件通用) ==========
+        glib gtk2 gtk3 pango cairo atk gdk-pixbuf
+        fontconfig freetype expat dbus
+
+        # ========== X11 窗口系统 ==========
+        libx11 libxext libxfixes libxrender libxcursor libxi
+        libxrandr libxinerama libxtst libxcomposite libxdamage
+        libxcb libxshmfence libxxf86vm
+
+        # ========== 显卡 / 3D / 渲染 ==========
+        libGL libGLU vulkan-loader libdrm libgbm libva libvdpau
+        libepoxy
+
+        # ========== 音频 ==========
+        pipewire pulseaudio alsa-lib
+
+        # ========== AppImage 必备 (fuse) ==========
+        fuse e2fsprogs
+
+        # ========== 游戏 / Steam / Unity ==========
+        SDL2 SDL2_mixer SDL2_ttf ffmpeg libunwind
+        glew_1_10 libogg libvorbis
+
+        # ========== 网络 / 安全 ==========
+        gnutls krb5 brotli libcap
+
+        # ========== 常用第三方软件依赖 ==========
+        webkitgtk_4_1 libsoup_3 harfbuzz
+        libnotify icu libarchive
+        libxkbcommon # Blender
+    ];
+  };
+
+  # 录制软件
+  programs.obs-studio = {
+    enable = true;
+  };
+
+  # Steam游戏平台
+  programs.steam = {
+    enable = true;
+    fontPackages = with pkgs; [
+      source-han-sans
+    ];
+  };
+
+  # vscode
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+      ms-ceintl.vscode-language-pack-zh-hans  # 中文语言包
+      github.copilot-chat
+    ];
+  };
+
+    # === Shell: Zsh + Oh My Zsh 合并增强版 ===
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;           # 启用原生命令补全
+    enableBashCompletion = true;       # 兼容 Bash 补全
+    histSize = 20000;                  # 内存缓存
+
+    # 命令自动建议（灰色提示）
+    autosuggestions = {
+      enable = true;
+      strategy = [ "history" "completion" ];
+    };
+
+    # 实时语法高亮
+    syntaxHighlighting.enable = true;
+
+    # Oh My Zsh 核心配置（保留你喜欢的主题 + 插件）
+    ohMyZsh = {
+      enable = true;
+      theme = "gnzh";
+      plugins = [
+        "git"
+        "docker"
+        "kubectl"
+        "sudo"
+        "extract"
+        "history"
+        "colorize"
+        "command-not-found"
+        "colored-man-pages"
+        "fancy-ctrl-z"
+      ];
+    };
+  };
+  # 将默认 Shell 设置为 zsh
+  users.users.carry.shell = pkgs.zsh;
 }
