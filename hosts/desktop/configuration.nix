@@ -8,7 +8,7 @@
   # 系统基础设置（全局生效）
   # NVIDIA显卡驱动
   hardware.nvidia = {
-    open = true;              # 启用开源 NVIDIA 内核模块
+    open = false;              # 启用开源 NVIDIA 内核模块
     nvidiaSettings = true;    # 安装 NVIDIA 控制面板
     package = config.boot.kernelPackages.nvidiaPackages.beta;
     modesetting.enable = true;  # 硬件加速渲染（必须开）
