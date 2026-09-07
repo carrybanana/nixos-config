@@ -228,7 +228,7 @@
     }
   ];
   # zram‑swap 内存压缩交换，优先使用
-  services.zramSwap = {
+  zramSwap = {
     enable = true;
     memoryPercent = 25;     # 32G →最多8G物理内存用于zram，压缩后可达14‑18G有效swap
     priority = 100;         # zram最高优先级，先耗尽zram才走磁盘swapfile
