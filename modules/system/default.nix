@@ -39,7 +39,7 @@
 #     boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;            # Zen调优内核，均衡桌面游戏
 
 #     boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;         # Xanmod，跟随nixpkgs，补丁更多
-    boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;  # Xanmod 上游滚动最新，激进风险大
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;  # Xanmod 上游滚动最新，激进风险大
 
 
   # 启用硬件支持，特别是固件（firmware）和 CPU 微码（microcode）更新，以确保系统稳定、安全并能正确驱动硬件设备。

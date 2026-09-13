@@ -7,9 +7,9 @@
   };
 
   # 如意玲珑商店
-#   services.linyaps = {
-#     enable = true;
-#   };
+  services.linyaps = {
+    enable = true;
+  };
 
   # 系统级软件（所有用户共享，如开发工具）
   environment.systemPackages = with pkgs; [
