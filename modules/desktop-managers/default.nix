@@ -6,7 +6,7 @@
     ./hyprland/default.nix
 #     ./niri/default.nix
 #     ./cosmic.nix
-#     ./gnome.nix
+    ./gnome.nix
     ./kde-plasma.nix
     ./noctalia.nix
   ];
