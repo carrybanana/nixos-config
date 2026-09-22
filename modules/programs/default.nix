@@ -24,6 +24,7 @@
     unzip                 # 解压zip压缩包
     unrar                 # 解压rar压缩包
     _7zip-zstd            # 解压7z压缩包
+    sirikali              # 隐私保险箱
 
     cachix
     ffmpeg
