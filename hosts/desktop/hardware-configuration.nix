@@ -14,16 +14,55 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/097732f5-b4a6-41fc-8e15-9e1958717c3b";
-      fsType = "xfs";
-      options = [
-        "noatime"           # 关闭访问时间更新，减少大量元数据写，noatime自带nodiratime
-        "logbsize=256k"     # XFS 日志缓冲区大小，最大 256k，提升元数据吞吐（nix store 大量小文件、包解压）
-      ];
+    { device = "/dev/disk/by-uuid/6d1d0a39-eaf7-4d9b-a6a6-45fa0a7b7361";
+      fsType = "btrfs";
+      options = [ "subvol=@" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/6d1d0a39-eaf7-4d9b-a6a6-45fa0a7b7361";
+      fsType = "btrfs";
+      options = [ "subvol=@home" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/6d1d0a39-eaf7-4d9b-a6a6-45fa0a7b7361";
+      fsType = "btrfs";
+      options = [ "subvol=@nix" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/root" =
+    { device = "/dev/disk/by-uuid/6d1d0a39-eaf7-4d9b-a6a6-45fa0a7b7361";
+      fsType = "btrfs";
+      options = [ "subvol=@root" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/srv" =
+    { device = "/dev/disk/by-uuid/6d1d0a39-eaf7-4d9b-a6a6-45fa0a7b7361";
+      fsType = "btrfs";
+      options = [ "subvol=@srv" "compress=zstd" "noatime" ];
+    };
+
+  fileSystems."/var/cache" =
+    { device = "/dev/disk/by-uuid/6d1d0a39-eaf7-4d9b-a6a6-45fa0a7b7361";
+      fsType = "btrfs";
+      options = [ "subvol=@cache" "noatime" ];
+    };
+
+  fileSystems."/var/log" =
+    { device = "/dev/disk/by-uuid/6d1d0a39-eaf7-4d9b-a6a6-45fa0a7b7361";
+      fsType = "btrfs";
+      options = [ "subvol=@log" "noatime" ];
+    };
+
+  fileSystems."/tmp" =
+    { device = "/dev/disk/by-uuid/6d1d0a39-eaf7-4d9b-a6a6-45fa0a7b7361";
+      fsType = "btrfs";
+      options = [ "subvol=@tmp" "noatime" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/7A52-12DA";
+    { device = "/dev/disk/by-uuid/359C-4B64";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
