@@ -91,29 +91,10 @@
             environment.systemPackages = [agenix.packages.${system}.default];
           }
 	  
-          # Configuration Revision
+          # Configuration Revision， 把你当前 Flake Git 仓库的 commit hash（版本号）打进系统里面，区分不同启动世代对应的配置版本
           ({ config, lib, pkgs, ... }: {
             system.configurationRevision = self.rev or self.dirtyRev or null;
           })
-
-#           ({ pkgs, ... }: {
-#           nixpkgs.overlays = [
-#             # pinned overlay，优先拉取预编译缓存，推荐
-#             nix-cachyos-kernel.overlays.pinned
-#             # 二选一，不要同时开两个
-#             # nix-cachyos-kernel.overlays.default
-#           ];
-#
-#           # ===== 这里选择内核，我推荐 bore x86_64-v3 =====
-# #           boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-x86_64-v3;
-#           boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-x86_64-v3;
-#
-#           # XFS：内核默认已经开启XFS支持，只需要声明支持的文件系统
-# #           boot.supportedFilesystems = [ "xfs" ];
-#
-#           # 如果你需要ZFS才加下面这行，你只用XFS，删掉！
-#           # boot.zfs.package = config.boot.kernelPackages.zfs_cachyos;
-#           })
 
         ];
       };
@@ -139,7 +120,7 @@
             environment.systemPackages = [agenix.packages.${system}.default];
           }
           
-          # Configuration Revision
+          # Configuration Revision， 把你当前 Flake Git 仓库的 commit hash（版本号）打进系统里面，区分不同启动世代对应的配置版本
           ({ config, lib, pkgs, ... }: {
             system.configurationRevision = self.rev or self.dirtyRev or null;
           })
