@@ -38,11 +38,11 @@
 
 #   boot.kernelPackages = pkgs.linuxPackages_latest;                        # 主线新版内核
 
-    boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;            # Zen调优内核，均衡桌面游戏
+#     boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;            # Zen调优内核，均衡桌面游戏
 
 #     boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;         # Xanmod，跟随nixpkgs，补丁更多
 
-#   boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;  # Xanmod 上游滚动最新，激进风险大
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;  # Xanmod 上游滚动最新，激进风险大
 
 #   # chchyos内核
 #   nixpkgs.overlays = [
