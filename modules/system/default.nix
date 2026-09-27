@@ -36,7 +36,7 @@
 #   boot.kernelPackages = pkgs.linuxKernel.packages.linux;                  # nixpkgs 默认主线内核
 
 #   boot.kernelPackages = pkgs.linuxPackages_latest;                        # 主线新版内核,linuxPackages_latest 是一个别名，等价于下面的写法
-#   boot.kernelPackages = pkgs.linuxKernel.packages.linux_latest;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_latest;
 
 #     boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;            # Zen调优内核，均衡桌面游戏
 
