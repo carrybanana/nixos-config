@@ -100,7 +100,7 @@
     rustdesk-flutter
 
     # 密码安全
-#     bitwarden-desktop
+    bitwarden-desktop
     kdePackages.keysmith
     keepassxc
 
@@ -109,7 +109,6 @@
 
     # 学习 & 效率
 #     ticktick
-#     notion-app
     obsidian
 
     # 本地视频播放
@@ -208,7 +207,7 @@
     ];
   };
 
-    # === Shell: Zsh + Oh My Zsh 合并增强版 ===
+  # === Shell: Zsh + Oh My Zsh 合并增强版 ===
   programs.zsh = {
     enable = true;
     enableCompletion = true;           # 启用原生命令补全
