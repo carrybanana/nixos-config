@@ -1,41 +1,35 @@
 {
-  description = "系统级配置入口（管理NixOS系统与服务）";
-
+  description = "系统配置";
   inputs = {
 #     nixpkgs.url = "github:NixOS/nixpkgs/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 #     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
-    # niri
     niri = {
       url = "github:YaLTeR/niri";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # noctalia shell
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+      url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # hyprland
     hyprland = {
-      url = "github:hyprwm/Hyprland";         # Hyprland 主仓库
+      url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # home manager
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # flake-utils 辅助工具
-    flake-utils = {
-      url = "github:numtide/flake-utils";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    # agenix
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -43,90 +37,64 @@
 
     catppuccin.url = "github:catppuccin/nix";
 
-    impermanence.url = "github:nix-community/impermanence";     # 新增：持久化模块
+    impermanence.url = "github:nix-community/impermanence";
 
-    # use release branch for cached builds
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   };
 
+  outputs = inputs@{ flake-parts, nixpkgs, ... }:
 
-  outputs = {
-    self,
-    nixpkgs,
-    niri,
-    noctalia,
-    hyprland,
-    home-manager,
-    flake-utils,
-    agenix,
-    catppuccin,
-    impermanence,
-    nix-cachyos-kernel,
-    ...
-  } @ inputs:
   let
     system = "x86_64-linux";
+    lib = nixpkgs.lib;
+    hosts = import ./hosts/inventory.nix;
+    username = "carry";
+    homeModules = [ ./home/carry/default.nix ];
+    mkHomeSpecialArgs = { inherit inputs; };
+    mkHost = name: host: lib.nixosSystem {
+      inherit (host) system;
+      specialArgs = { inherit inputs; };
+      modules = [
+        ./hosts/${name}/configuration.nix
+        ./hosts/${name}/hardware-configuration.nix
+        ./modules/default.nix
+        inputs.impermanence.nixosModules.impermanence
+        inputs.agenix.nixosModules.age
+        inputs.catppuccin.nixosModules.catppuccin
+        inputs.home-manager.nixosModules.home-manager
+        {
+          environment.systemPackages = [ inputs.agenix.packages.${host.system}.agenix ];
+        }
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = mkHomeSpecialArgs // { hostName = name; };
+          home-manager.users.${username} = {
+            imports = homeModules;
+          };
+        }
 
-  in {
-    nixosConfigurations = {
-
-      # === 台式机配置 ===
-      desktop = nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        specialArgs = {
-          inherit inputs;         # 传递所有flakes源
-        };
-
-        modules = [
-          ./hosts/desktop/configuration.nix
-          ./hosts/desktop/hardware-configuration.nix  # 硬件配置，用于加载硬件扫描结果
-          ./modules/default.nix
-
-          impermanence.nixosModules.impermanence    # 新增：启用 impermanence
-          agenix.nixosModules.default
-          catppuccin.nixosModules.catppuccin
-          home-manager.nixosModules.home-manager
-          {
-            environment.systemPackages = [agenix.packages.${system}.default];
+        # Configuration Revision， 把你当前 Flake Git 仓库的 commit hash（版本号）打进系统里面，区分不同启动世代对应的配置版本
+        ({ config, lib, pkgs, ... }:{
+            system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
           }
-	  
-          # Configuration Revision， 把你当前 Flake Git 仓库的 commit hash（版本号）打进系统里面，区分不同启动世代对应的配置版本
-          ({ config, lib, pkgs, ... }: {
-            system.configurationRevision = self.rev or self.dirtyRev or null;
-          })
-
-        ];
+        )
+      ];
+    };
+  in
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [ ];
+      systems = [ system ];
+      flake = {
+        nixosConfigurations = lib.concatMapAttrs (name: host: { "${name}" = mkHost name host; }) hosts;
       };
-
-      # === 笔记本配置 ===
-      laptop = nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        specialArgs = {
-          inherit inputs;         # 传递所有flakes源
+      perSystem = { pkgs, ... }: {
+        formatter = pkgs.nixfmt;
+        packages.home-manager = inputs.home-manager.packages.${pkgs.stdenv.hostPlatform.system}.home-manager;
+        devShells.default = pkgs.mkShellNoCC {
+          packages = with pkgs; [ deadnix jq nixfmt ripgrep shellcheck statix ];
         };
-
-        modules = [
-          ./hosts/laptop/configuration.nix
-          ./hosts/laptop/hardware-configuration.nix
-          ./modules/default.nix
-
-          impermanence.nixosModules.impermanence    # 新增：启用 impermanence
-          agenix.nixosModules.default           # ← 启用 agenix 加密模块
-          catppuccin.nixosModules.catppuccin
-          home-manager.nixosModules.home-manager
-          {
-            environment.systemPackages = [agenix.packages.${system}.default];
-          }
-          
-          # Configuration Revision， 把你当前 Flake Git 仓库的 commit hash（版本号）打进系统里面，区分不同启动世代对应的配置版本
-          ({ config, lib, pkgs, ... }: {
-            system.configurationRevision = self.rev or self.dirtyRev or null;
-          })
-          
-        ];
+        checks = { };
       };
     };
-  };
 }

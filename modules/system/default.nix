@@ -127,12 +127,6 @@
     uid = 1000;  # 可选：固定UID，避免多设备同步冲突
   };
 
-#   # 固化 /etc/nixos 权限：所有者=carry，组=users（你的实际默认组）
-#   # 权限 0755 安全可控，不影响 git 操作和系统安全性
-#   systemd.tmpfiles.rules = [
-#     "d /etc/nixos 0755 carry users - -"
-#   ];
-
   # 启用系统文档功能，特别是 man 手册（manual pages）并优化其使用体验。
   documentation = {
     enable = true;
@@ -181,11 +175,12 @@
     serviceMode = true;
   };
 
-  # 4. 磁盘优化（fstrim，SSD必备）
-  services.fstrim = {
-    enable = true;
-    interval = "weekly";         # 直接设置执行频率（支持 "daily"、"weekly"、"monthly" 等）
-  };
+  # 已开启`discard=async` Btrfs 异步 TRIM，所以关闭 strim.timer（传统定时修剪）
+#   # 4. 磁盘优化（fstrim，SSD必备）
+#   services.fstrim = {
+#     enable = true;
+#     interval = "weekly";         # 直接设置执行频率（支持 "daily"、"weekly"、"monthly" 等）
+#   };
 
 #   # 5. 快照工具（Snapper，根分区快照）
 #   services.snapper = {

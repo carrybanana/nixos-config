@@ -17,12 +17,4 @@
     allowUnfree = true;          # 允许闭源软件
     nvidia.acceptLicense = true; # 同意NVIDIA协议
   };
-
-  # 集成 Home Manager
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    extraSpecialArgs = { inherit inputs; };
-    users.carry = import ../home/carry/default.nix;
-  };
 }
