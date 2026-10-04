@@ -1,20 +1,104 @@
-/etc/nixos
-├── flake.nix          # 入口：定义系统、主机、模块、home-manager
-├── flake.lock         # 锁定版本，保证可复现
-├── home/carry/        # 用户级配置（home-manager）
-│   ├── kitty          # 终端配置
-│   ├── secrets        # 密钥/敏感配置
-│   └── shell          # shell 环境
-├── hosts/             # 多主机配置（台式机 + 笔记本）
-│   ├── desktop
-│   └── laptop
-├── modules/           # 系统全局模块（核心！）
-│   ├── fonts          # 字体
-│   ├── input-method   # 输入法（fcitx5）
-│   ├── services       # 桌面环境、显示管理器
-│   │   ├── desktop-managers/gnome、hyprland、kde、niri
-│   │   └── display-managers/sddm 等
-│   ├── system/programs  # 系统级软件（firefox、nvim、vscode、steam…）
-│   └── virtualisation   # 虚拟化（qemu-kvm）
-├── overlays/          # 包覆盖、自定义编译选项
-└── Wallpapers/        # 壁纸
+# ============================================================================
+# NixOS 配置目录结构
+# ============================================================================
+# 顶层：flake 入口 + 三块划分（home / hosts / modules）
+# 思路：hosts 定义机器，modules 定义能力，home 定义用户层。
+# ============================================================================
+
+.
+├── flake.nix                        # flake 入口：inputs + mkHost + perSystem（checks/format）
+├── flake.lock                       # input 版本锁；升级用 nix flake update
+├── statix.toml                      # statix 规则配置（禁用 empty_pattern 误报）
+├── plaintext.txt                    # 本文件：目录结构说明
+├── result -> /nix/store/...         # nixos-rebuild build/boot 的产物软链接，可删
+│
+├── Wallpapers/                      # 壁纸资源
+│
+├── hosts/                           # 机器清单 + 每台机器的硬件/主机级配置
+│   ├── inventory.nix                # 主机名 → { system } 映射，被 flake.nix 消费
+│   ├── desktop/
+│   │   ├── configuration.nix        # 桌面机主机级配置（选择加载哪些模块）
+│   │   └── hardware-configuration.nix  # nixos-generate-config 产出，磁盘/CPU/GPU
+│   └── laptop/
+│       ├── configuration.nix        # 笔电主机级配置
+│       └── hardware-configuration.nix
+│
+├── modules/                         # 能力模块：按功能域划分，被 hosts 按需 import
+│   ├── default.nix                  # 模块聚合入口，import 下面所有子目录
+│   │
+│   ├── system/                      # 系统基础能力
+│   │   ├── default.nix              # 聚合 system/* 下的模块
+│   │   ├── boot.nix                 # bootloader（GRUB/systemd-boot）
+│   │   ├── catppuccin.nix           # catppuccin 主题接入
+│   │   ├── documentation.nix        # man page / nixos-help 等
+│   │   ├── hardware.nix             # 图形驱动、bluetooth、电源管理
+│   │   ├── locale.nix               # 时区、locale、键盘布局
+│   │   ├── networking.nix           # 网络、hostName、防火墙
+│   │   ├── nix-config.nix           # nix.settings、gc、substituters
+│   │   ├── qemu-kvm.nix             # 虚拟化（libvirtd / virt-manager）
+│   │   ├── services.nix             # 系统服务（打印、音频、ssh 等）
+│   │   ├── swap.nix                 # 交换分区 / zram
+│   │   └── users.nix                # 用户、组、sudo 规则
+│   │
+│   ├── desktop-managers/            # 桌面环境 / 窗口管理器
+│   │   ├── default.nix              # 聚合 + 选择加载哪个 DE/WM
+│   │   ├── cosmic.nix
+│   │   ├── gnome.nix
+│   │   ├── kde-plasma.nix
+│   │   ├── hyprland/
+│   │   │   └── default.nix
+│   │   ├── niri/
+│   │   │   └── default.nix
+│   │   └── noctalia.nix             # Noctalia shell（系统层）
+│   │
+│   ├── display-managers/            # 登录管理器
+│   │   ├── default.nix              # 选择用哪个 DM
+│   │   ├── sddm.nix
+│   │   └── plasma-login-manager.nix
+│   │
+│   ├── fonts/
+│   │   └── default.nix              # 字体、字体渲染、CJK 支持
+│   │
+│   ├── input-method/
+│   │   ├── default.nix
+│   │   └── fcitx5.nix               # 中文输入法
+│   │
+│   └── programs/
+│       └── default.nix              # 命令行/系统级程序集合（git、zsh 等）
+│
+├── overlays/
+│   └── default.nix                  # nixpkgs overlay（自定义包/版本覆盖）
+│
+└── home/                            # 用户层（home-manager），与系统层分开
+    └── carry/                       # 用户 carry 的 home 配置
+        ├── default.nix              # home 聚合入口，import 下面所有子目录
+        ├── hyprland/
+        │   ├── default.nix          # hyprland 用户配置（键位、规则、bar）
+        │   └── hypr/
+        │       └── hyprland.lua     # hyprland 用 lua 配置的话放这里
+        ├── kitty/
+        │   └── default.nix          # kitty 终端用户配置
+        └── niri/
+            ├── default.nix          # niri 用户配置
+            └── niri/
+                └── config.kdl       # niri 原生 KDL 配置
+
+# ============================================================================
+# 关键设计
+# ============================================================================
+# 1. hosts 只写"这台机器特殊"的部分，通用能力全在 modules/
+# 2. modules/ 按功能域分目录，每个域有 default.nix 聚合
+# 3. home/ 与 modules/ 平行：系统层（modules/）管机器，用户层（home/）管 dotfile
+# 4. flake.nix 是唯一入口，只负责：
+#    - inputs 声明 + lock
+#    - mkHost 把 hosts + modules + home 组装成 nixosSystem
+#    - perSystem 提供 formatter / devShell / checks（formatting、lint、dead-code）
+#
+# 常用命令：
+#   nix flake check                                       # 跑三个 check
+#   nix fmt                                               # 格式化（若挂住改用 nixfmt）
+#   sudo nixos-rebuild boot --flake .#desktop             # 装到 bootloader，不激活
+#   sudo nixos-rebuild switch --flake .#desktop           # 立即激活
+#   nix flake update                                      # 更新所有 input
+#   nix flake update noctalia                             # 只更新 noctalia
+# ============================================================================
