@@ -2,28 +2,9 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, ... }:
+{ ... }:
 
 {
-  services.xserver.videoDrivers = [ "nvidia" ]; # 开启nvidia驱动总开关
-  #   boot.blacklistedKernelModules = [ "nouveau" ];    # 把开源nouveau驱动拉入黑名单不跟nvidia open驱动抢
-
-  # NVIDIA显卡驱动
-  hardware.nvidia = {
-    open = true; # 启用开源 NVIDIA 内核模块
-    nvidiaSettings = true; # 安装 NVIDIA 控制面板
-    modesetting.enable = true; # 硬件加速渲染（必须开）
-
-    # 手动强制指定使用 NVIDIA 驱动包，而不是 NixOS 自动匹配的稳定版驱动。
-    #     package = config.boot.kernelPackages.nvidiaPackages.stable;   # nixpkgs 筛选过的稳定驱动，**系统默认使用**，兼容性优先。
-    #     package = config.boot.kernelPackages.nvidiaPackages.beta;   # NVIDIA Beta 测试驱动，新特性，但稳定性不保证。
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
-  };
-
-  programs.atop.atopgpu.enable = true; # GPU 监控工具
-
-  programs.gpu-screen-recorder.enable = true; # NVIDIA 硬件加速录屏
-
   # 系统状态版本（保持原配置，首次安装后勿改）
   system.stateVersion = "26.05";
 

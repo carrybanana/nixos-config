@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./cli.nix
-    ./gui.nix
+    ./qemu-kvm.nix
   ];
 }

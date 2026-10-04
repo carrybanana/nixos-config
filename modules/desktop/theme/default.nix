@@ -1,8 +1,6 @@
 { ... }:
-
 {
   imports = [
-    ./cli.nix
-    ./gui.nix
+    ./catppuccin.nix
   ];
 }
