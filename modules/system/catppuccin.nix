@@ -1,6 +1,6 @@
 # /etc/nixos/modules/system/default.nix
 
-{ config, lib, pkgs, inputs, ... }:
+{ ... }:
 
 {
   # Catppuccin 主题

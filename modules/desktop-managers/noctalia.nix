@@ -1,4 +1,8 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   # Noctalia：无官方模块，保留 systemPackages 安装

@@ -1,6 +1,6 @@
 # /etc/nixos/modules/system/default.nix
 
-{ config, lib, pkgs, inputs, ... }:
+{ ... }:
 
 {
   # 3. 启用 Soteria 安全增强模块
@@ -9,15 +9,15 @@
   # 启用 UDisks2 磁盘管理服务（桌面环境必备）
   services.udisks2.enable = true;
 
-    # 1. 音频服务（PipeWire替代PulseAudio）
-  services.pulseaudio.enable = false;        # 禁用旧的 PulseAudio 服务
-  security.rtkit.enable = true;              # 启用实时线程调度（低延迟音频必备）
+  # 1. 音频服务（PipeWire替代PulseAudio）
+  services.pulseaudio.enable = false; # 禁用旧的 PulseAudio 服务
+  security.rtkit.enable = true; # 启用实时线程调度（低延迟音频必备）
   services.pipewire = {
-    enable = true;                            # 核心：启用 PipeWire 主服务
-    alsa.enable = true;                       # 兼容 ALSA 音频架构（Linux 基础音频）
-    alsa.support32Bit = true;                 # 支持 32 位应用的 ALSA 兼容（如 Wine/游戏）
-    pulse.enable = true;                      # 兼容 PulseAudio 协议（绝大多数桌面软件依赖）
-    jack.enable = true;                       # 启用 JACK 兼容（专业音频软件/DAW 必备）
+    enable = true; # 核心：启用 PipeWire 主服务
+    alsa.enable = true; # 兼容 ALSA 音频架构（Linux 基础音频）
+    alsa.support32Bit = true; # 支持 32 位应用的 ALSA 兼容（如 Wine/游戏）
+    pulse.enable = true; # 兼容 PulseAudio 协议（绝大多数桌面软件依赖）
+    jack.enable = true; # 启用 JACK 兼容（专业音频软件/DAW 必备）
   };
 
   # 2. SSH服务（远程登录）
@@ -39,22 +39,32 @@
     serviceMode = true;
   };
 
-  # 已开启`discard=async` Btrfs 异步 TRIM，所以关闭 strim.timer（传统定时修剪）
-#   # 4. 磁盘优化（fstrim，SSD必备）
-#   services.fstrim = {
-#     enable = true;
-#     interval = "weekly";         # 直接设置执行频率（支持 "daily"、"weekly"、"monthly" 等）
-#   };
+  # 启用flatpak
+  services.flatpak = {
+    enable = true;
+  };
 
-#   # 5. 快照工具（Snapper，根分区快照）
-#   services.snapper = {
-#     configs = {
-#       root = {
-#         SUBVOLUME = "/";  # 正确：已改为大写
-#         TIMELINE_CREATE = true;   # 启用时间线快照
-#         TIMELINE_CLEANUP = true;  # 启用时间线快照清理
-#         NUMBER_LIMIT = "50";      # 保留50个快照（此选项为字符串类型，无需修改）
-#       };
-#     };
-#   };
+  # 如意玲珑商店
+  services.linyaps = {
+    enable = true;
+  };
+
+  # 已开启`discard=async` Btrfs 异步 TRIM，所以关闭 strim.timer（传统定时修剪）
+  #   # 4. 磁盘优化（fstrim，SSD必备）
+  #   services.fstrim = {
+  #     enable = true;
+  #     interval = "weekly";         # 直接设置执行频率（支持 "daily"、"weekly"、"monthly" 等）
+  #   };
+
+  #   # 5. 快照工具（Snapper，根分区快照）
+  #   services.snapper = {
+  #     configs = {
+  #       root = {
+  #         SUBVOLUME = "/";  # 正确：已改为大写
+  #         TIMELINE_CREATE = true;   # 启用时间线快照
+  #         TIMELINE_CLEANUP = true;  # 启用时间线快照清理
+  #         NUMBER_LIMIT = "50";      # 保留50个快照（此选项为字符串类型，无需修改）
+  #       };
+  #     };
+  #   };
 }

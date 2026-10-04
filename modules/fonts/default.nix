@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # 中文字体配置（系统级字体，所有用户共享）
@@ -37,10 +37,16 @@
       # 设置系统三大类默认字体
       defaultFonts = {
         # 衬线字体（文章、书籍、网页正文）
-        serif = ["Noto Serif" "Noto Serif CJK SC"];
+        serif = [
+          "Noto Serif"
+          "Noto Serif CJK SC"
+        ];
 
         # 无衬线字体（系统界面、按钮、菜单、标题）
-        sansSerif = ["Noto Sans"  "Noto Sans CJK SC"];
+        sansSerif = [
+          "Noto Sans"
+          "Noto Sans CJK SC"
+        ];
 
         # --------------------------
         # 等宽字体（终端/代码编辑器全局默认）

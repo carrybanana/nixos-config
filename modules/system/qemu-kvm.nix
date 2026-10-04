@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   # 跨架构二进制模拟（binfmt）
@@ -8,7 +8,11 @@
   ];
 
   # 用户权限：组名修正 libvirt，删除错误 libvirtd
-  users.users.carry.extraGroups = [ "libvirt" "kvm" "disk" ];
+  users.users.carry.extraGroups = [
+    "libvirt"
+    "kvm"
+    "disk"
+  ];
 
   environment.systemPackages = with pkgs; [
     qemu_kvm

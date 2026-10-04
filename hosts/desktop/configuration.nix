@@ -2,50 +2,49 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, ... }:
 
 {
-  services.xserver.videoDrivers = [ "nvidia" ];     # 开启nvidia驱动总开关
-#   boot.blacklistedKernelModules = [ "nouveau" ];    # 把开源nouveau驱动拉入黑名单不跟nvidia open驱动抢
+  services.xserver.videoDrivers = [ "nvidia" ]; # 开启nvidia驱动总开关
+  #   boot.blacklistedKernelModules = [ "nouveau" ];    # 把开源nouveau驱动拉入黑名单不跟nvidia open驱动抢
 
   # NVIDIA显卡驱动
   hardware.nvidia = {
-    open = true;              # 启用开源 NVIDIA 内核模块
-    nvidiaSettings = true;    # 安装 NVIDIA 控制面板
-    modesetting.enable = true;  # 硬件加速渲染（必须开）
+    open = true; # 启用开源 NVIDIA 内核模块
+    nvidiaSettings = true; # 安装 NVIDIA 控制面板
+    modesetting.enable = true; # 硬件加速渲染（必须开）
 
     # 手动强制指定使用 NVIDIA 驱动包，而不是 NixOS 自动匹配的稳定版驱动。
-#     package = config.boot.kernelPackages.nvidiaPackages.stable;   # nixpkgs 筛选过的稳定驱动，**系统默认使用**，兼容性优先。
-#     package = config.boot.kernelPackages.nvidiaPackages.beta;   # NVIDIA Beta 测试驱动，新特性，但稳定性不保证。
+    #     package = config.boot.kernelPackages.nvidiaPackages.stable;   # nixpkgs 筛选过的稳定驱动，**系统默认使用**，兼容性优先。
+    #     package = config.boot.kernelPackages.nvidiaPackages.beta;   # NVIDIA Beta 测试驱动，新特性，但稳定性不保证。
     package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
 
-  programs.atop.atopgpu.enable = true;  # GPU 监控工具
+  programs.atop.atopgpu.enable = true; # GPU 监控工具
 
-  programs.gpu-screen-recorder.enable = true;  # NVIDIA 硬件加速录屏
+  programs.gpu-screen-recorder.enable = true; # NVIDIA 硬件加速录屏
 
   # 系统状态版本（保持原配置，首次安装后勿改）
   system.stateVersion = "26.05";
 
   # 官方推荐的持久化配置
-#   environment.persistence."/persist" = {
-#     # 只持久化「安全、不与系统冲突」的目录
-#     directories = [
-#       "/etc/nixos"                  # 你的系统配置（核心，必须持久）
-#       "/var/lib"                    # 系统服务数据
-#       "/var/log"                    # 系统日志
-#       "/var/cache"                  # 缓存（可选，持久化可加速）
-#       "/srv"                        # 服务数据
-#       "/var/tmp"                    # 临时文件
-#       "/etc/NetworkManager/system-connections"  # Wi-Fi/网络配置
-#     ];
-#
-#     # 只持久化「系统允许、无冲突」的文件
-#     files = [
-#       "/etc/machine-id"             # 系统唯一ID（必须持久）
-#       "/etc/ssh/ssh_host_ed25519_key" # SSH密钥
-#       "/etc/ssh/ssh_host_rsa_key"   # SSH密钥
-#     ];
-#   };
+  #   environment.persistence."/persist" = {
+  #     # 只持久化「安全、不与系统冲突」的目录
+  #     directories = [
+  #       "/etc/nixos"                  # 你的系统配置（核心，必须持久）
+  #       "/var/lib"                    # 系统服务数据
+  #       "/var/log"                    # 系统日志
+  #       "/var/cache"                  # 缓存（可选，持久化可加速）
+  #       "/srv"                        # 服务数据
+  #       "/var/tmp"                    # 临时文件
+  #       "/etc/NetworkManager/system-connections"  # Wi-Fi/网络配置
+  #     ];
+  #
+  #     # 只持久化「系统允许、无冲突」的文件
+  #     files = [
+  #       "/etc/machine-id"             # 系统唯一ID（必须持久）
+  #       "/etc/ssh/ssh_host_ed25519_key" # SSH密钥
+  #       "/etc/ssh/ssh_host_rsa_key"   # SSH密钥
+  #     ];
+  #   };
 }
-
