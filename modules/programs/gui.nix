@@ -90,6 +90,20 @@
   programs.appimage = {
     enable = true;
     binfmt = true; # 直接双击运行 AppImage
+
+    # 覆盖 appimage-run，添加缺失的库
+    package = pkgs.appimage-run.override {
+      extraPkgs =
+        pkgs: with pkgs; [
+          libepoxy # 刚刚报错缺失的库
+          libxshmfence # 预防性添加，很多应用也需要
+          libxshmfence
+          libsoup_3
+          webkitgtk_4_1
+          libnotify
+          libthai
+        ];
+    };
   };
 
   # ======================
