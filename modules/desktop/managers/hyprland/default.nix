@@ -34,7 +34,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    hyprpolkitagent # Polkit授权
+    hyprpolkitagent
     kdePackages.dolphin
     kdePackages.kate
   ];

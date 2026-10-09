@@ -32,6 +32,7 @@ local menu        = "hyprlauncher"-- 应用启动器
 hl.on("hyprland.start", function ()
     hl.exec_cmd("fcitx5 -d")  	-- 后台启动 fcitx5（-d = daemon）
     hl.exec_cmd("noctalia -d")
+    hl.exec_cmd("systemctl --user start hyprpolkitagent") -- 启动 Polkit 认证代理
 --   hl.exec_cmd(terminal)
 --   hl.exec_cmd("nm-applet")
 --   hl.exec_cmd("waybar & hyprpaper & firefox")
