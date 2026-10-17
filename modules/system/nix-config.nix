@@ -13,14 +13,14 @@
         "https://cache.nixos.org/" # 官方兜底
         "https://nix-community.cachix.org"
 
-        "https://attic.xuyh0120.win/lantian" # cachyos 内核缓存
+#         "https://attic.xuyh0120.win/lantian" # cachyos 内核缓存
       ];
       # 仅保留官方公钥（清华/中科大无独立公钥）
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" # 官方源的公钥
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" # nix-community公钥
 
-        "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" # cahcyos内核缓存公钥
+#         "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" # cahcyos内核缓存公钥
       ];
       trusted-users = [
         "root"
