@@ -20,10 +20,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    denial = {
-      url = "github:denialwm/denial";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
