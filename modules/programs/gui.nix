@@ -18,7 +18,7 @@
     # 开发工具 & 编辑器（图形）
     # ==============================================
     zed-editor-fhs # Zed 编辑器（FHS 兼容版）
-    #    jetbrains-toolbox # JetBrains 全家桶管理工具
+    #  jetbrains-toolbox # JetBrains 全家桶管理工具
     qtcreator # Qt 集成开发环境
     kitty # 高性能 GPU 加速终端模拟器
     fuzzel # niri 默认的启动器
