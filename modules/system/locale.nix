@@ -1,4 +1,3 @@
-# /etc/nixos/modules/system/default.nix
 { ... }:
 
 {
