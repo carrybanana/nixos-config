@@ -55,7 +55,7 @@
       hosts = import ./hosts/inventory.nix;
       username = "carry";
       homeModules = [ ./home/carry/default.nix ];
-      #     mkHomeSpecialArgs = { inherit inputs; };
+      # mkHomeSpecialArgs = { inherit inputs; };
       src = lib.cleanSource ./.;
 
       mkHost =
