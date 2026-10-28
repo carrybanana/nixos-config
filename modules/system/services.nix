@@ -103,7 +103,7 @@
     # 指向 Caddy 代理的内网 HTTPS 地址
     domain = "https://192.168.1.215:8443";
     # 备份目录（建议后续把这里加入你的备份计划）
-    backupDir = "/var/lib/vaultwarden/backup";
+    backupDir = "/var/backup/vaultwarden";
 
     config = {
       # 仅监听本地回环，由 Caddy 负责对外通信
