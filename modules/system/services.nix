@@ -88,7 +88,4 @@
       MACHINE_LEARNING_DEVICE = "cuda";
     };
   };
-  environment.systemPackages = with pkgs; [
-    immich
-  ];
 }
