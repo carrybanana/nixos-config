@@ -1,4 +1,7 @@
-{ ... }:
+{
+  pkgs,
+  ...
+}:
 
 {
   # 3. 启用 Soteria 安全增强模块
@@ -85,4 +88,7 @@
       MACHINE_LEARNING_DEVICE = "cuda";
     };
   };
+  environment.systemPackages = with pkgs; [
+    immich
+  ];
 }
