@@ -4,7 +4,6 @@
   # 导入级模块
   imports = [
     ./desktop/default.nix
-    ./hardware/default.nix
     ./programs/default.nix
     ./system/default.nix
     ./virtualisation/default.nix

@@ -29,7 +29,7 @@
 
   # ============ 内核选择，每次只取消注释其中一行 ============
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;                    		# 主线新版内核
+  boot.kernelPackages = pkgs.linuxPackages_latest; # 主线新版内核
 
   # boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;         		# Zen调优内核，均衡桌面游戏
 
