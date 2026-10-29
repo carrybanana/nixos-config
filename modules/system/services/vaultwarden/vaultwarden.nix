@@ -10,17 +10,14 @@
   # 1. 启用 Vaultwarden
   services.vaultwarden = {
     enable = true;
-    # 指向 Caddy 代理的内网 HTTPS 地址
-    domain = "https://192.168.1.215:8443";
-    # 备份目录（建议后续把这里加入你的备份计划）
-    backupDir = "/var/backup/vaultwarden";
+    domain = "192.168.1.215:8443"; # 指向 Caddy 代理的内网 HTTPS 地址
+    backupDir = "/var/backup/vaultwarden"; # 备份目录（建议后续把这里加入你的备份计划）
 
     config = {
-      # 仅监听本地回环，由 Caddy 负责对外通信
-      ROCKET_ADDRESS = "127.0.0.1";
+      ROCKET_ADDRESS = "127.0.0.1"; # 仅监听本地回环，由 Caddy 负责对外通信
       ROCKET_PORT = 8222;
-      # 初次部署设为 true 以便注册管理员，注册完立刻改回 false
-      SIGNUPS_ALLOWED = true;
+      WEB_VAULT_ENABLED = true;
+      SIGNUPS_ALLOWED = true; # 初次部署设为 true 以便注册管理员，注册完立刻改回 false
     };
   };
 
@@ -29,14 +26,11 @@
     enable = true;
     virtualHosts."https://192.168.1.215:8443" = {
       extraConfig = ''
-        # 实时通知 (WebSocket) 转发，用于多设备即时同步
-        reverse_proxy /notifications/hub* localhost:3012
+        reverse_proxy /notifications/hub* localhost:3012  # 实时通知 (WebSocket) 转发，用于多设备即时同步
 
-        # 其余所有请求转发给 Vaultwarden
-        reverse_proxy localhost:8222
+        reverse_proxy localhost:8222  # 其余所有请求转发给 Vaultwarden
 
-        # 使用 Caddy 的内部 CA 自动签发本地证书
-        tls internal
+        tls internal  # 使用 Caddy 的内部 CA 自动签发本地证书
       '';
     };
   };
