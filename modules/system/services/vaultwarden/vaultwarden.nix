@@ -17,7 +17,7 @@
       ROCKET_ADDRESS = "127.0.0.1"; # 仅监听本地回环，由 Caddy 负责对外通信
       ROCKET_PORT = 8222;
       WEB_VAULT_ENABLED = true;
-      SIGNUPS_ALLOWED = true; # 初次部署设为 true 以便注册管理员，注册完立刻改回 false
+      SIGNUPS_ALLOWED = false; # 初次部署设为 true 以便注册管理员，注册完立刻改回 false
 
       ADMIN_TOKEN = "/v42F0xznnH2BdYL4ckxGlKjt2528qyPCiInwXQJX/RKPB9rkr+uih6diM69aX8v%";
     };
