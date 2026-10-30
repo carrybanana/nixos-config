@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  # 仅保留「系统级用户配置」（用户创建、组权限，用户专属配置放home/）
+  # carry
   users.users.carry = {
     isNormalUser = true;
     description = "carry";
@@ -17,5 +17,17 @@
       "libvirtd"
     ];
     uid = 1000; # 可选：固定UID，避免多设备同步冲突
+  };
+
+  # maomao
+  users.users.maomao = {
+    isNormalUser = true;
+    description = "毛毛的账号";
+
+    # 绝对不能加 "wheel"，否则他就有了管理员权限
+    extraGroups = [ "networkmanager" "video" "audio" ];
+
+    # 粘贴第一步生成的那串以 $y$j9T$ 开头的完整哈希值
+    hashedPassword = "$y$j9T$72fz1RSLBdWa7EjpUHgeY0$kL4EYhJz9rlN.TqlfZRvfl92k1j4LS.0g5pe9BPmENA";
   };
 }
