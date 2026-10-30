@@ -48,7 +48,6 @@
     # ==============================================
     bitwarden-desktop # Bitwarden 密码管理器（桌面版）
     kdePackages.keysmith # KDE 密钥/证书管理工具
-    keepassxc # KeePassXC 密码管理器
 
     # ==============================================
     # 下载
