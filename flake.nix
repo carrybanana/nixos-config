@@ -44,6 +44,11 @@
       url = "github:nix-community/impermanence";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      # 官方建议不要加 inputs.nixpkgs.follows，因为 NixVim 是针对特定 nixpkgs 版本测试的[citation:1]
+    };
   };
 
   outputs =
@@ -72,8 +77,9 @@
             inputs.impermanence.nixosModules.impermanence
             inputs.agenix.nixosModules.age
             inputs.catppuccin.nixosModules.catppuccin
-            inputs.home-manager.nixosModules.home-manager
+            inputs.nixvim.nixosModules.nixvim
 
+            inputs.home-manager.nixosModules.home-manager
             {
               environment.systemPackages = [
                 inputs.agenix.packages.${host.system}.agenix
