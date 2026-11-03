@@ -18,6 +18,30 @@
         };
       };
 
+      # 用 blink-cmp
+      blink-cmp = {
+        enable = true;
+        settings = {
+          # 1. 补全来源：lsp (clangd) 和 buffer 是核心
+          sources.default = [
+            "lsp"
+            "path"
+            "buffer"
+          ];
+
+          # 2. 使用内置的 "default" 预设键位（推荐新手先用这个）
+          keymap.preset = "default";
+
+          # 3. (可选) 自定义部分快捷键，覆盖预设
+          # keymap = {
+          #   "<C-Space>" = [ "show" "fallback" ];   # 手动触发补全
+          #   "<CR>" = [ "accept" "fallback" ];      # 回车确认
+          #   "<C-j>" = [ "select_next" "fallback" ]; # 向下选择
+          #   "<C-k>" = [ "select_prev" "fallback" ]; # 向上选择
+          # };
+        };
+      };
+
       # C++ 调试还需要 lldb 适配器，否则 CMakeDebug 仍不可用
       dap.enable = true;
       dap-lldb.enable = true;
