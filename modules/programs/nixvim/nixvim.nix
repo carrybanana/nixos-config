@@ -1,10 +1,16 @@
 {
+  pkgs,
   ...
 }:
 
 {
   programs.nixvim = {
     enable = true;
+
+    opts = {
+      number = true; # 显示绝对行号
+      relativenumber = true; # 同时显示相对行号（方便跳转）
+    };
 
     # 空格键作为 Leader
     globals.mapleader = " ";
@@ -15,6 +21,10 @@
         enable = true;
         servers.clangd = {
           enable = true;
+          package = pkgs.llvmPackages_23.clang-tools;
+          extraOptions = {
+            fallbackFlags = [ "-std=c++26" ];
+          };
         };
       };
 
