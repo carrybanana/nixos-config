@@ -21,7 +21,7 @@
         "root"
         "carry"
       ];
-      # 启用实验性功能：nix命令增强和flakes支持
+      # nix命令增强和flakes支持
       experimental-features = [
         "nix-command"
         "flakes"

@@ -67,10 +67,21 @@
         name: host:
         lib.nixosSystem {
           inherit (host) system;
+
           specialArgs = {
             inherit inputs username;
           };
           modules = [
+
+            # ✅ 将 nixpkgs.config 作为一个独立的模块加入
+            {
+              nixpkgs.config = {
+                problems.handlers = {
+                  "gtk+".broken = "warn"; # 或 "ignore"
+                };
+              };
+            }
+
             ./hosts/${name}/configuration.nix
             ./hosts/${name}/hardware-configuration.nix
             ./modules/default.nix

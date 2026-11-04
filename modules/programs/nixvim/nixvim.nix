@@ -22,9 +22,9 @@
         servers.clangd = {
           enable = true;
           package = pkgs.llvmPackages_23.clang-tools;
-#           extraOptions = {
-#             fallbackFlags = [ "-std=c++26" ];
-#           };
+          #           extraOptions = {
+          #             fallbackFlags = [ "-std=c++26" ];
+          #           };
         };
       };
 

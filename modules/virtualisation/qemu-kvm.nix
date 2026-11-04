@@ -7,7 +7,7 @@
     "riscv64-linux"
   ];
 
-  # 用户权限：组名修正 libvirt，删除错误 libvirtd
+  # 用户权限
   users.users.carry.extraGroups = [
     "libvirt"
     "kvm"
