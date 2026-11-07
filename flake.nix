@@ -1,8 +1,8 @@
 {
   description = "系统配置";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/master";
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:NixOS/nixpkgs/master";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     niri = {
