@@ -72,7 +72,6 @@
     kitty # 高性能 GPU 加速终端模拟器
     fuzzel # niri 默认的启动器
     alacritty # niri 默认的终端
-    deepseek-harness
 
     # ==============================================
     # 浏览器
