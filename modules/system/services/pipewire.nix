@@ -11,6 +11,5 @@
     alsa.enable = true; # 兼容 ALSA 音频架构（Linux 基础音频）
     alsa.support32Bit = true; # 支持 32 位应用的 ALSA 兼容（如 Wine/游戏）
     pulse.enable = true; # 兼容 PulseAudio 协议（绝大多数桌面软件依赖）
-    jack.enable = true; # 启用 JACK 兼容（专业音频软件/DAW 必备）
   };
 }
