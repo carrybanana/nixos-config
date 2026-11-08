@@ -8,8 +8,8 @@
     enable = true;
   };
 
-  # 如意玲珑商店
-  services.linyaps = {
-    enable = true;
-  };
+#   # 如意玲珑商店
+#   services.linyaps = {
+#     enable = true;
+#   };
 }
