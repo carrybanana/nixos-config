@@ -250,11 +250,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1794180039,
-        "narHash": "sha256-vENRpNT6omxYGd2cI9+X1xwm9aAp2JD5ixibTqg7uLQ=",
+        "lastModified": 1794221806,
+        "narHash": "sha256-P6LkrX13khvsMiNOLEC4hvHTpTwXv5IXiikZQMXPwPU=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "151b0434114fad482e4fed9438c081b46e73423c",
+        "rev": "a1d7a78b6c8e54ad72d401bfa8b85fdc89ee66a6",
         "type": "github"
       },
       "original": {
@@ -518,11 +518,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794215500,
-        "narHash": "sha256-rWJ7gmQYeMI/44egnA1BiQIXYiG5+zE4rRh3OVK6jVc=",
+        "lastModified": 1794236217,
+        "narHash": "sha256-bU7QnmtVKtNWKLYsFt9EOASPpfiEF/mxNFQEKJu/XU4=",
         "ref": "refs/heads/main",
-        "rev": "c7e93dfe5b43464854a9c0cb5188d19c8b3af85b",
-        "revCount": 2526,
+        "rev": "75d08dba949ccc4189ca743d963e41ea886a35ff",
+        "revCount": 2532,
         "type": "git",
         "url": "https://github.com/SuceV587/NextKde"
       },
@@ -610,11 +610,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794215465,
-        "narHash": "sha256-TyNjK4lP4oCGBFxMx/SKZnuiSW9TZ+TsSa+ecG9Q8Q4=",
+        "lastModified": 1794231370,
+        "narHash": "sha256-Vf0aFsgS8WOtDk4/YXHLU7J5FGubCfB7NcLzKe5M92c=",
         "owner": "noctalia-dev",
         "repo": "noctalia",
-        "rev": "2e5643de1cbdef3d05d11d6b959cf17b42c4c3d0",
+        "rev": "abd21e85bc354c7d1e3d624ed064b6c729ed4846",
         "type": "github"
       },
       "original": {
