@@ -1,5 +1,4 @@
 {
-  pkgs,
   ...
 }:
 
@@ -16,12 +15,5 @@
     group = "wheel";
     tunMode = true;
     serviceMode = true;
-
-    # 关键修改：覆盖默认的 clash-verge-rev 包
-    package = pkgs.clash-verge-rev.overrideAttrs (oldAttrs: {
-      preBuild = (oldAttrs.preBuild or "") + ''
-        export AWS_LC_SYS_USE_SYSTEM=0
-      '';
-    });
   };
 }

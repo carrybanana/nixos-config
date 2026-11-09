@@ -3,7 +3,7 @@
   imports = [
     ./vaultwarden/default.nix # Vaultwarden 与 Caddy 纯内网自托管配置
     ./app-store.nix # flatpak  如意玲珑商店
-    ./clash-verge.nix # Clash Verge 代理客户端
+    # ./clash-verge.nix # Clash Verge 代理客户端
     ./immich.nix # immich相冊
     ./openssh.nix # SSH服务
     ./pipewire.nix # 音频服务
