@@ -19,8 +19,9 @@
 
     # 关键修改：覆盖默认的 clash-verge-rev 包
     package = pkgs.clash-verge-rev.overrideAttrs (oldAttrs: {
-      # 方案一：直接取消环境变量，让 aws-lc-sys 从源码构建
-      AWS_LC_SYS_USE_SYSTEM = null;
+      preBuild = (oldAttrs.preBuild or "") + ''
+        export AWS_LC_SYS_USE_SYSTEM=0
+      '';
     });
   };
 }
