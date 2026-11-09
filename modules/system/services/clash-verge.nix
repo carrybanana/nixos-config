@@ -18,13 +18,13 @@
 #     serviceMode = true;
 #   };
 
-#   # throne
-#   programs.throne = {
-#     enable = true;
-#     package = pkgs.throne; # 通常无需修改，除非你想指定特定版本
-#     tunMode = {
-#       enable = true;
-#       setuid = false; # 建议先用默认值 false
-#     };
-#   };
+  # throne
+  programs.throne = {
+    enable = true;
+    package = pkgs.throne; # 通常无需修改，除非你想指定特定版本
+    tunMode = {
+      enable = true;
+      setuid = false; # 建议先用默认值 false
+    };
+  };
 }
