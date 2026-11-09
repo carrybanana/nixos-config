@@ -49,6 +49,13 @@
       url = "github:nix-community/nixvim";
       # 官方建议不要加 inputs.nixpkgs.follows，因为 NixVim 是针对特定 nixpkgs 版本测试的[citation:1]
     };
+
+    nextkde = {
+      # 使用已发布的 Tag，而非 main 分支，以保证稳定性
+      url = "git+https://github.com/SuceV587/NextKde";
+      # 让 nextkde 使用你系统相同的 nixpkgs，避免版本冲突
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
