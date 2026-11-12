@@ -9,7 +9,7 @@
   ];
 
   # 启用 KOS 桌面 Shell 核心服务
-  services.kos.enable = false;
+  services.kos.enable = true;
 
   # （可选）启用独立的天气应用
   # services.kos.weather.enable = true;
